@@ -1200,7 +1200,7 @@
 								surname = thegroom.dna.species.random_surname()
 							// Ensure leading space for surname
 							if(!findtext(surname, " "))
-								surname = " [surname]"
+								surname = "[surname]"
 							// Assign surname to groom
 							var/list/groom_name_parts = splittext(thegroom.real_name, " ")
 							var/groom_first_name = groom_name_parts[1]

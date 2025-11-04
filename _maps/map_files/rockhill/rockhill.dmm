@@ -67440,7 +67440,7 @@
 /obj/structure/closet/crate/roguecloset{
 	keylock = 1;
 	locked = 1;
-	lockid = "blacksmith"
+	lockid = "crafterguild"
 	},
 /obj/item/rogueweapon/tongs,
 /obj/item/rogueweapon/hammer/iron,

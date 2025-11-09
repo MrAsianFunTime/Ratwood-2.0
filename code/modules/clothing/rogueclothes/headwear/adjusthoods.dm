@@ -22,12 +22,14 @@
 	max_integrity = 100
 	sewrepair = TRUE
 	block2add = FOV_BEHIND
+	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/cloak (3).ogg', null, (UPD_HEAD|UPD_MASK))	//Standard hood
 
-/obj/item/clothing/head/roguetown/roguehood/MiddleClick(mob/user) 
+/obj/item/clothing/head/roguetown/roguehood/MiddleClick(mob/user)
 	overarmor = !overarmor
 	to_chat(user, span_info("I [overarmor ? "wear \the [src] under my hair" : "wear \the [src] over my hair"]."))
 	if(overarmor)
@@ -78,6 +80,8 @@
 	sewrepair = TRUE
 	mask_override = TRUE
 	overarmor = FALSE
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/neck/roguetown/roguehood/shalal/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, HEAD|EARS|NECK|HAIR, HIDEHAIR|HIDEFACE, null, null, null, (UPD_HEAD|UPD_MASK|UPD_NECK))
@@ -141,6 +145,8 @@
 	toggle_icon_state = TRUE
 	max_integrity = 100
 	resistance_flags = FIRE_PROOF
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/abyssor
 	name = "depths hood"
@@ -156,6 +162,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	max_integrity = 100
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/ravoxgorget
 	name = "ravox's tabard gorget"
@@ -167,6 +175,8 @@
 	flags_inv = HIDENECK
 	dynamic_hair_suffix = ""
 	sewrepair = TRUE
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 //............... Feldshers Hood ............... //
 /obj/item/clothing/head/roguetown/roguehood/feld
@@ -176,6 +186,8 @@
 	item_state = "feldhood"
 	body_parts_covered = HEAD|EARS|NOSE
 	color = null
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 //............... Physicians Hood ............... //
 /obj/item/clothing/head/roguetown/roguehood/phys
@@ -185,6 +197,8 @@
 	item_state = "surghood"
 	body_parts_covered = HEAD|EARS|NOSE
 	color = null
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 //Agnostic variants for use in the loadout.
 
@@ -195,6 +209,8 @@
 	item_state = "feldhood"
 	body_parts_covered = HEAD|EARS|NOSE
 	color = null
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/shroudblack
 	name = "black shroud"
@@ -203,6 +219,8 @@
 	item_state = "surghood"
 	body_parts_covered = HEAD|EARS|NOSE
 	color = null
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 //
 
@@ -242,6 +260,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	max_integrity = 200
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/hierophant
 	name = "hierophant's pashmina"
@@ -252,6 +272,8 @@
 	icon_state = "deserthood"
 	item_state = "deserthood"
 	naledicolor = TRUE
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/roguehood/pontifex
 	name = "pontifex's pashmina"
@@ -262,3 +284,5 @@
 	icon_state = "monkhood"
 	item_state = "monkhood"
 	naledicolor = TRUE
+	salvage_result = /obj/item/natural/cloth
+	salvage_amount = 1

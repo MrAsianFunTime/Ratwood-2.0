@@ -13,7 +13,6 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
-	salvage_result = /obj/item/natural/hide/cured
 	unarmed_bonus = 1.1
 	color = "#66584c"
 
@@ -94,7 +93,7 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST) //Equivalent to Heavy Leather Gloves. Deinherits the durability and exclusive critprot of Otavan gloves.
 	icon_state = "psydongloves"
 	item_state = "psydongloves"
-	salvage_result = /obj/item/natural/hide/cured	
+	salvage_result = /obj/item/natural/hide/cured
 	allowed_race = ALL_RACES_TYPES
 
 // Eastern gloves

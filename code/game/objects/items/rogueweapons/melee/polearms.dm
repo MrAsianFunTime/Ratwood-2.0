@@ -362,9 +362,9 @@
 									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE)
 									record_featured_stat(FEATURED_STATS_FISHERS, fisherman)
 									GLOB.azure_round_stats[STATS_FISH_CAUGHT]++
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
+									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)
 							else
-								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")								
+								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")
 					else
 						to_chat(user, "<span class='warning'>Not a single fish...</span>")
 						user.mind.add_sleep_experience(/datum/skill/labor/fishing, fisherman.STAINT/2)
@@ -641,7 +641,7 @@
 									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
 									record_featured_stat(FEATURED_STATS_FISHERS, fisherman)
 									record_round_statistic(STATS_FISH_CAUGHT)
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
+									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)
 							else
 								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")
 					else
@@ -802,7 +802,7 @@
 		added_def = 2,\
 	)
 
-/obj/item/rogueweapon/halberd/psyhalberd	
+/obj/item/rogueweapon/halberd/psyhalberd
 	name = "psydonic halberd"
 	desc = "A reliable design that has served humenkind to fell the enemy and defend Psydon's flock - now fitted with a lengthier blade and twin, silver-tipped beaks."
 	icon_state = "silverhalberd"
@@ -1355,6 +1355,7 @@
 	icon_angle_wielded = 50
 	wbalance = WBALANCE_HEAVY
 	minstr_req = TRUE//No more speed partizan.
+	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/spear/partizan/getonmobprop(tag)
 	. = ..()
@@ -1374,6 +1375,7 @@
 	force_wielded = 33 // 10% base damage increase
 	wdefense = 6 // A little bit extra
 	max_blade_int = 200
+	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/spear/boar/frei
 	name = "Aavnic lándzsa"
@@ -1399,6 +1401,7 @@
 	possible_item_intents = list(SPEAR_THRUST, /datum/intent/lance/onehand, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
 	gripped_intents = list(/datum/intent/spear/thrust/lance, /datum/intent/lance, SPEAR_BASH)
 	resistance_flags = null
+	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/spear/naginata
 	name = "naginata"
@@ -1414,6 +1417,7 @@
 	wdefense = 5
 	throwforce = 12	//Not a throwing weapon.
 	icon_angle_wielded = 50
+	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/spear/naginata/getonmobprop(tag)
 	. = ..()
@@ -1558,7 +1562,7 @@
 	wdefense = 15
 	max_integrity = 555
 	max_blade_int = 555
-	alt_intents = null 
+	alt_intents = null
 	is_silver = TRUE
 	smeltresult = /obj/item/rogueweapon/sword/long/kriegmesser/silver //Too thick to completely melt.
 

@@ -342,6 +342,7 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
+	smeltresult = /obj/item/ingot/silver
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm/getonmobprop(tag)
 	if(tag)
@@ -450,6 +451,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/64x64/head.dmi'
 	bloody_icon = 'icons/effects/blood64.dmi'
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
+	smeltresult = /obj/item/ingot/silver
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 	name = "psydonic bucket helmet"
@@ -459,6 +461,7 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
+	smeltresult = /obj/item/ingot/silver
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psysallet
 	name = "psydonic sallet"
@@ -468,6 +471,7 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
+	smeltresult = /obj/item/ingot/silver
 
 /obj/item/clothing/head/roguetown/helmet/heavy/nochelm
 	name = "noc helmet"
@@ -562,7 +566,7 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/berserker
 	name = "volfskulle bascinet"
 	desc = "A steel bascinet helmet with a snarling visor that protects the entire head and face. Just like the nitebeasts it mimics, so too does the helmet's teeth glisten with flesh-sundering sharpness."
-	armor_class = ARMOR_CLASS_LIGHT //Pseudoantagonist-exclusive. Gives them an edge over traditional pugilists and barbarians. 
+	armor_class = ARMOR_CLASS_LIGHT //Pseudoantagonist-exclusive. Gives them an edge over traditional pugilists and barbarians.
 	var/active_item = FALSE
 
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/berserker/equipped(mob/living/user, slot)

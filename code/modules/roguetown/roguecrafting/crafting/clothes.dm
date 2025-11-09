@@ -220,7 +220,7 @@
 		)
 
 /datum/crafting_recipe/roguetown/survival/woodcross
-	name = "wooden amulet"
+	name = "wooden psycross"
 	category = "Clothes"
 	result = /obj/item/clothing/neck/roguetown/psicross/wood
 	reqs = list(
@@ -229,7 +229,7 @@
 		)
 
 /datum/crafting_recipe/roguetown/survival/wickercloak
-	name = "wickercloak"
+	name = "wicker cloak"
 	category = "Clothes"
 	result = /obj/item/clothing/cloak/wickercloak
 	reqs = list(

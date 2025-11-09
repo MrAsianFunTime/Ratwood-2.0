@@ -4,6 +4,8 @@
 	desc = "It's scratchy and rustic, but at least it keeps the sun off your head while you toil in the fields."
 	icon_state = "strawhat"
 	sewrepair = TRUE
+	salvage_result = /obj/item/natural/fibers
+	salvage_amount = 2 // Minor materials loss
 
 /obj/item/clothing/head/roguetown/puritan
 	name = "buckled hat"
@@ -67,6 +69,8 @@
 	sewrepair = TRUE
 	armor = ARMOR_CLOTHING
 	blocksound = SOFTHIT
+	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/hatblu
 	name = "fur hat"
@@ -231,7 +235,7 @@
 	color = "#48443b"
 	sewrepair = TRUE
 	resistance_flags = FIRE_PROOF
-	armor = ARMOR_SPELLSINGER //Higher-tier protection for pugilist-centric classes. Fits the 'glass cannon' style, and prevents instant death through a glancing headshot on the intended archetype. 
+	armor = ARMOR_SPELLSINGER //Higher-tier protection for pugilist-centric classes. Fits the 'glass cannon' style, and prevents instant death through a glancing headshot on the intended archetype.
 	blade_dulling = DULLING_BASHCHOP
 	body_parts_covered = HEAD|HAIR|EARS
 	max_integrity = ARMOR_INT_SIDE_STEEL //High leather-tier protection and critical resistances, steel-tier integrity. Integrity boost encourages hand-to-hand parrying. Weaker than the Psydonic Thorns.
@@ -325,17 +329,15 @@
 	desc = "A plain leather hat with decorative buckle. Made popular by the ne'er-do-wells of Etrusca."
 	icon_state = "bucklehat"
 	sewrepair = TRUE
-	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/head/roguetown/duelhat //lifeweb sprite
 	name = "duelist's hat"
 	desc = "A feathered leather hat, to show them all your superiority."
 	icon_state = "duelhat"
 	sewrepair = TRUE
-	color = COLOR_ALMOST_BLACK	
+	color = COLOR_ALMOST_BLACK
 	detail_tag = "_detail"
 	detail_color = COLOR_SILVER
-	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/head/roguetown/wizhat
 	name = "wizard hat"
@@ -438,6 +440,8 @@
 	smeltresult = null
 	sewrepair = TRUE
 	blocksound = SOFTHIT
+	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/helmet/tricorn/skull
 	icon_state = "tricorn_skull"
@@ -460,6 +464,8 @@
 	smeltresult = null
 	sewrepair = TRUE
 	blocksound = SOFTHIT
+	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/head/roguetown/veiled
 	name = "nurse's veil"
@@ -490,7 +496,7 @@
 
 /obj/item/clothing/head/roguetown/veiled/ComponentInitialize()
 	..()
-	AddComponent(/datum/component/adjustable_clothing, (NECK|HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/foley/equip/cloak (3).ogg', null, (UPD_HEAD|UPD_MASK))	
+	AddComponent(/datum/component/adjustable_clothing, (NECK|HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/foley/equip/cloak (3).ogg', null, (UPD_HEAD|UPD_MASK))
 
 /obj/item/clothing/head/roguetown/veiled/loudmouth
 	name = "loudmouth's headcover"

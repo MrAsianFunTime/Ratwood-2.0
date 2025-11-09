@@ -31,7 +31,7 @@
 	required_tier = 3
 	cost = 85
 	selection_weight = 15
-	prerequisites = list("HEAL_TIER1") 
+	prerequisites = list("HEAL_TIER1")
 
 /datum/chimeric_tech_node/awaken_resurrection
 	name = "Awaken divine resurrection"
@@ -89,6 +89,14 @@
 	selection_weight = 2
 	prerequisites = list("INFESTATION_TIER3")
 	is_recipe_node = TRUE
+
+/datum/chimeric_tech_node/corpse_ticks
+	name = "Corpse Ticks"
+	description = "Allows leechticks to attach to dead bodies to extract their lux"
+	string_id = "CORPSE_TICKS"
+	required_tier = 1
+	cost = 5
+	selection_weight = 1
 
 /// INFESTATION CHARGE CAPACITY TECHS
 /datum/chimeric_tech_node/infestation_capacity_1

@@ -74,7 +74,7 @@
 			return FALSE
 		if(target.mob_biotypes & MOB_UNDEAD && harms_undead) //positive energy harms the undead
 			target.visible_message(
-				span_danger("[target] is unmade by divine magic!"), 
+				span_danger("[target] is unmade by divine magic!"),
 				span_userdanger("I'm unmade by divine magic!")
 			)
 			target.gib()
@@ -124,7 +124,7 @@
 
 	// Scan for items in radius
 	for(var/obj/item/I in range(item_radius, center))
-		if(I.type in required_items)
+		if(I.type in current_required_items)
 			available_items[I.type] += 1
 
 	// Check quantities and compile missing list
@@ -146,8 +146,9 @@
 	return ""
 
 /obj/effect/proc_holder/spell/invoked/resurrect/proc/consume_items(atom/center)
-	for(var/item_type in required_items)
-		var/needed = required_items[item_type]
+	var/list/current_required_items = get_current_required_items()
+	for(var/item_type in current_required_items)
+		var/needed = current_required_items[item_type]
 
 		for(var/obj/item/I in range(item_radius, center))
 			if(needed <= 0)

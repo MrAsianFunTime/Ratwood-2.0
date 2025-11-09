@@ -39,13 +39,15 @@
 	beltr = /obj/item/rogueweapon/huntingknife/cleaver /// proper self defense an tree aquiring
 	pants = /obj/item/clothing/under/roguetown/trou
 	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
-	backl = /obj/item/storage/backpack/rogue/satchel
+	backl = /obj/item/storage/backpack/rogue/backpack
 	backpack_contents = list(
 						/obj/item/natural/worms/leech/cheele = 1,
 						/obj/item/natural/cloth = 2,
 						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/rogueweapon/huntingknife/scissors/steel = 1,
-						/obj/item/hair_dye_cream = 3
+						/obj/item/hair_dye_cream = 3,
+						/obj/item/heart_blood_canister/filled = 2,
+						/obj/item/bait/leech = 4
 						)
 	if(H.age == AGE_OLD)
 		H.change_stat(STATKEY_SPD, -1)

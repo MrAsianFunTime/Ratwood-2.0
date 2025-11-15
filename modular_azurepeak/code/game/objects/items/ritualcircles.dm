@@ -1991,7 +1991,7 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 	if(HAS_TRAIT(target, TRAIT_BAOTHA_SHAPED))
 		loc.visible_message(span_cult("They have already been blessed!"))
 		return
-	var/prompt = alert(target, "Goddess of corrupted affection is about to make you being able to bear children!",, "Let it happen...", "Resist!")
+	var/prompt = alert(target, "The Goddess of corrupted affection is about to give you the boon of fertility; to bear children!",, "Let it happen...", "Resist!")
 	if(prompt == "Let it happen...")
 		to_chat(target, span_warning("A strange feeling of warmth appears inside your abdomen, growing hotter and hotter untill it almost feels like you are on fire, but pain actually never comes..."))
 		target.Stun(60)

@@ -25,7 +25,7 @@
 							/obj/item/natural/stone = 23,
 							/obj/item/natural/rock = 6,
 							/obj/item/magic/artifact = 4,
-							/obj/structure/leyline = 1,
+							/obj/structure/leyline = 2,
 							/obj/structure/voidstoneobelisk = 1,
 							/obj/structure/flora/roguegrass/herb/manabloom = 4,
 							/obj/item/magic/manacrystal = 1,

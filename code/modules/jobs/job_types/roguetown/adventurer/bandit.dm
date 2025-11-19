@@ -101,8 +101,11 @@
 	// Baseline: 1 bandit slot if ANY antag capacity exists.
 	var/slots
 
-	if(free_capacity > 1)
+	if(free_capacity > 3)
 		slots = round(free_capacity)
-		slots = clamp(slots, 1, 6)	//max of 6 at any point
+		slots = clamp(slots, 3, 6)	//max of 6 at any point
 		bandit_job.total_positions = slots
 		bandit_job.spawn_positions = slots
+	else
+		bandit_job.total_positions = 3
+		bandit_job.spawn_positions = 3

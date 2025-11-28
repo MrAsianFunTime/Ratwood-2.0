@@ -92,6 +92,7 @@
 #define TRAIT_SIMPLESPEECH "Simple Speech" // Can only say the 1000 most common English-language words; other words get modified
 #define TRAIT_BLOODPOOL_BORN "Bloodpool Born"
 #define TRAIT_ROYALSERVANT "Household Insight" // Let's you see the royals liked/hated food/drink
+#define TRAIT_WAGES_SUSPENDED "Wages Suspended" //Stops nerve master daily pay for this guy
 
 //Hearthstone port (Tracking)
 #define TRAIT_PERFECT_TRACKER "Huntmaster" //Will always find any tracks and analyzes them perfectly.
@@ -469,6 +470,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_ROYALSERVANT = span_greentext("I've been serving the royal family for long enough to know their exotic tastes."),
 	TRAIT_SPELL_DISPERSION = span_necrosis("Spells are useless against me, so long as I maintain my arcyne barrier."),
 	TRAIT_CONVICTION = span_suppradio("My connection to the Ten is unwavering. Prayer alone keeps me alive, for I am a conduit of faith."),
+	TRAIT_WAGES_SUSPENDED = span_warning("The Stewardry has halted my daily wages!"),
 ))
 
 // trait accessor defines

@@ -959,8 +959,20 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 						
 						// Apply modifications for loadout items
 						if(is_loadout_item)
+							// Mark as loadout item to prevent crafting usage
+							I.loadout_item = TRUE
+							
+							// Add subtle examination text to indicate this is a loadout reproduction
+							if(I.desc)
+								I.desc += " The craftsmanship suggests this may be a reproduction."
+							else
+								I.desc = "The craftsmanship suggests this may be a reproduction."
+							
 							// Set sellprice to 0
 							I.sellprice = 0
+							
+							// Make items smelt to ash instead of original materials
+							I.smeltresult = /obj/item/ash
 							
 							// Remove crit protection if the item has it
 							if(istype(I, /obj/item/clothing))
@@ -969,6 +981,11 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 								// Set armor class to LIGHT for all loadout armor
 								if(C.armor_class != ARMOR_CLASS_NONE)
 									C.armor_class = ARMOR_CLASS_LIGHT
+								// Set all loadout armor to basic padded values
+								if(C.armor)
+									C.armor = ARMOR_CLOTHING
+								// Set max integrity to light armor base
+								C.max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
 							
 							// Reduce weapon damage by 30% (rounded down)
 							if(I.force > 0)
@@ -978,10 +995,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 							if(I.wdefense > 0)
 								I.wdefense = round(I.wdefense * 0.5)
 							
-							// Reduce armor ratings by 50% (rounded down)
-							if(I.armor)
-								I.armor = I.armor.multiplymodifyAllRatings(0.5)
-						
 						// Apply custom color if set (for clothing and weapons) - BEFORE putting in hands
 						var/dye = user.client?.prefs.resolve_loadout_to_color(path2item)
 						if (dye)

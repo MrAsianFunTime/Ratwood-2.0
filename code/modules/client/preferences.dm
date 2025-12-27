@@ -141,23 +141,26 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			spent += L.triumph_cost
 	return spent
 
-// Points spent on additional languages (1 point each for extra slots)
+// DEPRECATED - Languages now use actual triumph pool, not vice points
+// Kept for backwards compatibility but no longer used in calculations
 /datum/preferences/proc/get_language_points_spent()
 	var/spent = 0
 	if(extra_language_1 && extra_language_1 != "None")
-		spent += 1
+		spent += 2
 	if(extra_language_2 && extra_language_2 != "None")
-		spent += 1
+		spent += 4
 	return spent
 
 // Total points available = base + points from vices
 /datum/preferences/proc/get_total_points()
 	return get_base_points() + get_vice_points()
 
-// Remaining points after accounting for loadouts and languages
+// Legacy proc - remaining points after accounting for both loadouts and languages
+// NOTE: Languages now use ACTUAL triumphs (player.get_triumphs()), not vice points
+// This proc only calculates loadout point usage now
 /datum/preferences/proc/get_remaining_points()
 	var/total = get_total_points()
-	var/spent = get_loadout_points_spent() + get_language_points_spent()
+	var/spent = get_loadout_points_spent() // Languages no longer count toward this
 	return total - spent
 
 

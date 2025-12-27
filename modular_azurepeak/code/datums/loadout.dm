@@ -20,6 +20,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 		return TRUE
 	return
 
+/datum/loadout_item/proc/nobility_check(client/C)
+	// Override this in subtypes that require nobility
+	return TRUE
+
 //Miscellaneous
 
 /datum/loadout_item/card_deck
@@ -45,21 +49,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr
 	triumph_cost = 3
 
-/datum/loadout_item/waterskin
-	name = "waterskin"
-	path = /obj/item/reagent_containers/glass/bottle/waterskin
-	triumph_cost = 3
-
-/datum/loadout_item/sack
-	name = "sack"
-	path = /obj/item/storage/roguebag
-	triumph_cost = 3
-
-/datum/loadout_item/pouch
-	name = "pouch"
-	path = /obj/item/storage/belt/rogue/pouch
-	triumph_cost = 3
-
 /datum/loadout_item/broom
 	name = "broom"
 	path = /obj/item/broom
@@ -79,16 +68,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "keyring"
 	path = /obj/item/storage/keyring
 	triumph_cost = 3
-
-/datum/loadout_item/flint
-	name = "flint"
-	path = /obj/item/flint
-	triumph_cost = 3
-
-/datum/loadout_item/needle_thorn
-	name = "thorn needle"
-	path = /obj/item/needle/thorn
-	triumph_cost = 1
 
 /datum/loadout_item/wooden_bowl
 	name = "bowl"
@@ -557,10 +536,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Halfmask"
 	path = /obj/item/clothing/mask/rogue/shepherd
 
-/datum/loadout_item/dendormask
-	name = "Briar Mask"
-	path = /obj/item/clothing/head/roguetown/dendormask
-
 /datum/loadout_item/exoticsilkmask
 	name = "Exotic Silk Mask"
 	path = /obj/item/clothing/mask/rogue/exoticsilkmask
@@ -604,17 +579,36 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/tri_cloth_belt
 	name = "Cloth Belt"
 	path = /obj/item/storage/belt/rogue/leather/cloth
-	triumph_cost = 2
 
-/datum/loadout_item/tri_kazengun_scabbard_steel
-	name = "Kazengun Scabbard (Steel)"
-	path = /obj/item/rogueweapon/scabbard/sword/kazengun/steel
+/datum/loadout_item/tri_kazengun_scabbard
+	name = "Kazengun Cerimonial Scabbard"
+	path = /obj/item/rogueweapon/scabbard/sword/kazengun/noparry/loadout
 	triumph_cost = 3
+
+/datum/loadout_item/tri_kazengun_scabbard/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 /datum/loadout_item/tri_shalal_belt
 	name = "Shalal Belt"
 	path = /obj/item/storage/belt/rogue/leather/shalal
-	triumph_cost = 3
 
 /datum/loadout_item/psicross
 	name = "Psydonian Cross"
@@ -799,7 +793,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/head/roguetown/nochood
 
 /datum/loadout_item/dendormask
-	name = "Dendor Mask"
+	name = "Briar Mask"
 	path = /obj/item/clothing/head/roguetown/dendormask
 
 /datum/loadout_item/necrahood
@@ -877,12 +871,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 // 
 // IMPORTANT INFORMATION ABOUT LOADOUT ITEMS:
 // All items selected from the loadout system receive the following automatic modifications:
-// - ARMOR: Reduced by 50% of original values (all armor ratings are halved)
+// - ARMOR: Set to ARMOR_PADDED_BAD (basic padded values) and ARMOR_INT_CHEST_LIGHT_BASE max integrity
 // - ARMOR CLASS: Set to LIGHT for all armor pieces
 // - SELL PRICE: Set to 0 (cannot be sold for profit)
 // - CRIT PREVENTION: Removed from clothing items (prevent_crits set to null)
 // - WEAPON DAMAGE: Reduced by 30% (force reduced to 70% of original)
 // - WEAPON DEFENSE: Reduced by 50% (wdefense halved)
+// - SMELT RESULT: Set to ash (cannot be smelted for materials)
+// - EXAMINATION: Items show as reproductions when examined
 // 
 // These modifications ensure loadout items provide utility and customization
 // without bypassing game progression or economy balance.
@@ -893,16 +889,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 //─────────────────────────────────────────────────────────────
 
 // TOOLS & OBJECTS
-/datum/loadout_item/tri_hammer
-	name = "Hammer"
-	path = /obj/item/rogueweapon/hammer/iron
-	triumph_cost = 2
-
-/datum/loadout_item/tri_pickaxe
-	name = "Pick"
-	path = /obj/item/rogueweapon/pick
-	triumph_cost = 2
-
 /datum/loadout_item/tri_shovel
 	name = "Shovel"
 	path = /obj/item/rogueweapon/shovel
@@ -911,17 +897,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/tri_sickle
 	name = "Sickle"
 	path = /obj/item/rogueweapon/sickle
-	triumph_cost = 2
-
-/datum/loadout_item/tri_hoe
-	name = "Hoe"
-	path = /obj/item/rogueweapon/hoe
-	triumph_cost = 2
-
-// SHIELDS
-/datum/loadout_item/tri_wooden_shield
-	name = "Wooden Shield"
-	path = /obj/item/rogueweapon/shield/wood
 	triumph_cost = 2
 
 // BLUNT WEAPONS
@@ -941,6 +916,106 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Stone Sword"
 	path = /obj/item/rogueweapon/sword/stone
 	triumph_cost = 2
+
+// Heirloom Swords (Non-Nobility)
+/datum/loadout_item/tri_arming_sword
+	name = "Heirloom Arming Sword"
+	path = /obj/item/rogueweapon/sword
+	triumph_cost = 6
+
+/datum/loadout_item/tri_longsword
+	name = "Heirloom Longsword"
+	path = /obj/item/rogueweapon/sword/long
+	triumph_cost = 8
+
+/datum/loadout_item/tri_heirloom_longsword
+	name = "Old Longsword (Heirloom)"
+	path = /obj/item/rogueweapon/sword/long/heirloom
+	triumph_cost = 7
+
+/datum/loadout_item/tri_rapier
+	name = "Rapier"
+	path = /obj/item/rogueweapon/sword/rapier
+	triumph_cost = 6
+
+// Decorated Swords (Nobility-Locked)
+/datum/loadout_item/tri_decorated_arming
+	name = "Decorated Heirloom Arming Sword"
+	path = /obj/item/rogueweapon/sword/decorated
+	triumph_cost = 8
+
+/datum/loadout_item/tri_decorated_arming/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
+
+/datum/loadout_item/tri_decorated_longsword
+	name = "Decorated Heirloom Longsword"
+	path = /obj/item/rogueweapon/sword/long/dec
+	triumph_cost = 10
+
+/datum/loadout_item/tri_decorated_longsword/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
+
+/datum/loadout_item/tri_decorated_rapier
+	name = "Decorated Heirloom Rapier"
+	path = /obj/item/rogueweapon/sword/rapier/dec
+	triumph_cost = 8
+
+/datum/loadout_item/tri_decorated_rapier/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 // DAGGERS & KNIVES
 /datum/loadout_item/tri_stone_knife
@@ -970,21 +1045,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/gloves/roguetown/leather
 	triumph_cost = 2
 
-/datum/loadout_item/tri_leather_bracers
-	name = "Leather Bracers"
-	path = /obj/item/clothing/wrists/roguetown/bracers/leather
-	triumph_cost = 2
-
-/datum/loadout_item/tri_splintarms
-	name = "Splint Arms"
-	path = /obj/item/clothing/wrists/roguetown/splintarms
-	triumph_cost = 5
-
-/datum/loadout_item/tri_steel_bracers
-	name = "Steel Bracers"
-	path = /obj/item/clothing/wrists/roguetown/bracers
-	triumph_cost = 4
-
 //─────────────────────────────────────────────────────────────
 // 3 TRIUMPH - Wooden Polearms & Noble Clothing
 //─────────────────────────────────────────────────────────────
@@ -1005,32 +1065,225 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/rogueweapon/scythe
 	triumph_cost = 5
 
+// CLOTHING - TABARDS & RELIGIOUS CLOAKS
+/datum/loadout_item/tri_astrata_tabard
+	name = "Astratan Tabard"
+	path = /obj/item/clothing/cloak/templar/astratan
+	triumph_cost = 5
+
+/datum/loadout_item/tri_malum_tabard
+	name = "Malumite Tabard"
+	path = /obj/item/clothing/cloak/templar/malumite
+	triumph_cost = 5
+
+/datum/loadout_item/tri_necra_tabard
+	name = "Necran Tabard"
+	path = /obj/item/clothing/cloak/templar/necran
+	triumph_cost = 5
+
+/datum/loadout_item/tri_pestra_tabard
+	name = "Pestran Tabard"
+	path = /obj/item/clothing/cloak/templar/pestran
+	triumph_cost = 5
+
+/datum/loadout_item/tri_eora_tabard
+	name = "Eoran Tabard"
+	path = /obj/item/clothing/cloak/templar/eoran
+	triumph_cost = 5
+
+/datum/loadout_item/tri_xylix_cloak
+	name = "Xylixian Cloak"
+	path = /obj/item/clothing/cloak/templar/xylixian
+	triumph_cost = 5
+
+/datum/loadout_item/tri_psydon_tabard
+	name = "Psydonian Tabard"
+	path = /obj/item/clothing/cloak/psydontabard
+	triumph_cost = 5
+
+/datum/loadout_item/tri_abyssor_tabard
+	name = "Abyssorite Tabard"
+	path = /obj/item/clothing/cloak/abyssortabard
+	triumph_cost = 5
+
+/datum/loadout_item/tri_see_tabard
+	name = "See Tabard"
+	path = /obj/item/clothing/cloak/templar/undivided
+	triumph_cost = 5
+
+/datum/loadout_item/tri_see_cloak
+	name = "See Cloak"
+	path = /obj/item/clothing/cloak/undivided
+	triumph_cost = 5
+
+/datum/loadout_item/tri_justice_tabard
+	name = "Justice Tabard (Ravox)"
+	path = /obj/item/clothing/cloak/templar/ravox
+	triumph_cost = 5
+
+// CLOTHING - ACCESSORIES
+/datum/loadout_item/tri_silver_pin
+	name = "Silver Hairpin"
+	path = /obj/item/lockpick/goldpin/silver
+	triumph_cost = 3
+
+/datum/loadout_item/tri_gold_pin
+	name = "Gold Hairpin"
+	path = /obj/item/lockpick/goldpin
+	triumph_cost = 5
+
+/datum/loadout_item/tri_gold_pin/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
+
 // CLOTHING - DRESSES & ROBES
 /datum/loadout_item/tri_princess_dress
 	name = "Princess Dress"
 	path = /obj/item/clothing/suit/roguetown/shirt/dress/royal/princess
 	triumph_cost = 4
 
+/datum/loadout_item/tri_princess_dress/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
+
 /datum/loadout_item/tri_royal_dress
 	name = "Royal Dress"
 	path = /obj/item/clothing/suit/roguetown/shirt/dress/royal
 	triumph_cost = 4
+
+/datum/loadout_item/tri_royal_dress/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 /datum/loadout_item/tri_royal_sleeves
 	name = "Royal Sleeves"
 	path = /obj/item/clothing/wrists/roguetown/royalsleeves
 	triumph_cost = 4
 
+/datum/loadout_item/tri_royal_sleeves/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
+
 /datum/loadout_item/tri_lady_cloak
 	name = "Lady's Cloak"
 	path = /obj/item/clothing/cloak/lordcloak/ladycloak
 	triumph_cost = 4
+
+/datum/loadout_item/tri_lady_cloak/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 // CLOTHING - HEADWEAR
 /datum/loadout_item/tri_circlet
 	name = "Circlet"
 	path = /obj/item/clothing/head/roguetown/circlet
 	triumph_cost = 4
+
+/datum/loadout_item/tri_circlet/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 /datum/loadout_item/tri_volfhelm
 	name = "Volf Helm"
@@ -1059,13 +1312,8 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	triumph_cost = 4
 
 // CLOTHING - ARMOR (Alphabetically Ordered)
-/datum/loadout_item/tri_chainmail_corslet
-	name = "Chainmail Corslet"
-	path = /obj/item/clothing/suit/roguetown/armor/chainmail/bikini
-	triumph_cost = 4
-
 /datum/loadout_item/tri_desert_coat
-	name = "Desert Coat (Padded)"
+	name = "Desert Coat"
 	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	triumph_cost = 4
 
@@ -1079,20 +1327,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter
 	triumph_cost = 4
 
-/datum/loadout_item/tri_fencer_halfplate
-	name = "Fencer's Half-Plate"
-	path = /obj/item/clothing/suit/roguetown/armor/plate/half/fencer
-	triumph_cost = 6
-
-/datum/loadout_item/tri_blacksteel_halfplate
-	name = "Blacksteel Half-Plate"
-	path = /obj/item/clothing/suit/roguetown/armor/plate/blacksteel_half_plate
-	triumph_cost = 7
-
-/datum/loadout_item/tri_forlorn_brigandine
-	name = "Forlorn Brigandine"
-	path = /obj/item/clothing/suit/roguetown/armor/brigandine/light
-	triumph_cost = 5
 
 /datum/loadout_item/tri_gambeson
 	name = "Gambeson"
@@ -1133,11 +1367,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Gronn Fur Pants"
 	path = /obj/item/clothing/under/roguetown/trou/leather/gronn
 	triumph_cost = 3
-
-/datum/loadout_item/tri_gronn_leather_gloves
-	name = "Gronn Leather Gloves"
-	path = /obj/item/clothing/gloves/roguetown/angle/gronn
-	triumph_cost = 2
 
 /datum/loadout_item/tri_gronn_bone_gloves
 	name = "Gronn Bone Gloves"
@@ -1184,11 +1413,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy
 	triumph_cost = 4
 
-/datum/loadout_item/tri_hierophant_gambeson
-	name = "Hierophant Gambeson"
-	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hierophant
-	triumph_cost = 4
-
 /datum/loadout_item/tri_hide_armor
 	name = "Hide Armor"
 	path = /obj/item/clothing/suit/roguetown/armor/leather/hide
@@ -1199,11 +1423,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/armor/leather/Huus_quyaq
 	triumph_cost = 3
 
-/datum/loadout_item/tri_iron_haubergeon
-	name = "Iron Haubergeon"
-	path = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
-	triumph_cost = 5
-
 /datum/loadout_item/tri_kurche
 	name = "Kurche (Gronn)"
 	path = /obj/item/clothing/suit/roguetown/armor/kurche
@@ -1212,6 +1431,11 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/tri_leather_cuirass
 	name = "Leather Cuirass"
 	path = /obj/item/clothing/suit/roguetown/armor/leather/cuirass
+	triumph_cost = 3
+
+/datum/loadout_item/tri_leather_corslet
+	name = "Leather Corslet"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/bikini
 	triumph_cost = 3
 
 /datum/loadout_item/tri_moose_hood
@@ -1233,11 +1457,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "New Moon Tunic"
 	path = /obj/item/clothing/suit/roguetown/shirt/tunic/newmoon
 	triumph_cost = 3
-
-/datum/loadout_item/tri_otavan_armor
-	name = "Otavan Armor (Plate)"
-	path = /obj/item/clothing/suit/roguetown/armor/plate/otavan
-	triumph_cost = 6
 
 /datum/loadout_item/tri_otavan_gambeson
 	name = "Otavan Gambeson"
@@ -1269,11 +1488,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	triumph_cost = 4
 
-/datum/loadout_item/tri_scale_armor
-	name = "Scale Armor"
-	path = /obj/item/clothing/suit/roguetown/armor/plate/scale
-	triumph_cost = 5
-
 /datum/loadout_item/tri_regen_skin
 	name = "Regenerating Skin"
 	path = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/weak
@@ -1294,40 +1508,15 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe
 	triumph_cost = 4
 
-/datum/loadout_item/tri_studded_leather
-	name = "Studded Leather Armor"
-	path = /obj/item/clothing/suit/roguetown/armor/leather/studded
-	triumph_cost = 4
-
-/datum/loadout_item/tri_vagarian_hauberk
-	name = "Vagarian Hauberk (Chainmail)"
-	path = /obj/item/clothing/suit/roguetown/armor/brigandine/gronn
-	triumph_cost = 6
-
 // HELMETS AND HEADWEAR (Alphabetically Ordered)
-/datum/loadout_item/tri_copper_lamellar_cap
-	name = "Copper Lamellar Cap"
-	path = /obj/item/clothing/head/roguetown/helmet/coppercap
-	triumph_cost = 3
-
 /datum/loadout_item/tri_grenzelhoft_hat
 	name = "Grenzelhoft Hat"
 	path = /obj/item/clothing/head/roguetown/grenzelhofthat
 	triumph_cost = 4
 
-/datum/loadout_item/tri_hardened_leather_helmet
-	name = "Hardened Leather Helmet"
-	path = /obj/item/clothing/head/roguetown/helmet/leather/advanced
-	triumph_cost = 4
-
 /datum/loadout_item/tri_hierophant_hood
 	name = "Hierophant Hood"
 	path = /obj/item/clothing/head/roguetown/roguehood/hierophant
-	triumph_cost = 5
-
-/datum/loadout_item/tri_iron_kettle_helmet
-	name = "Iron Kettle Helmet"
-	path = /obj/item/clothing/head/roguetown/helmet/kettle/iron
 	triumph_cost = 5
 
 /datum/loadout_item/tri_jingasa
@@ -1339,11 +1528,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Kabuto"
 	path = /obj/item/clothing/head/roguetown/helmet/heavy/kabuto
 	triumph_cost = 6
-
-/datum/loadout_item/tri_moose_hood
-	name = "Moose Hood (Shaman)"
-	path = /obj/item/clothing/head/roguetown/helmet/leather/saiga/atgervi
-	triumph_cost = 5
 
 /datum/loadout_item/tri_leather_helmet
 	name = "Leather Helmet"
@@ -1532,10 +1716,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	triumph_cost = 5
 
 // MASKS (Alphabetically Ordered)
-/datum/loadout_item/tri_copper_facemask
-	name = "Copper Facemask"
-	path = /obj/item/clothing/mask/rogue/facemask/copper
-	triumph_cost = 4
 
 // SHIRTS & ROBES (Alphabetically Ordered)
 /datum/loadout_item/tri_hierophant_robe
@@ -1548,60 +1728,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/shirt/robe/pointfex
 	triumph_cost = 3
 
-// BLUNT WEAPONS
-/datum/loadout_item/tri_cudgel
-	name = "Cudgel"
-	path = /obj/item/rogueweapon/mace/cudgel
-	triumph_cost = 4
-
-// AXES
-/datum/loadout_item/tri_bearded_axe
-	name = "Bearded Axe"
-	path = /obj/item/rogueweapon/stoneaxe/woodcut/steel/atgervi
-	triumph_cost = 6
-
-// DAGGERS & KNIVES
-/datum/loadout_item/tri_huntingknife_iron
-	name = "Iron Hunting Knife"
-	path = /obj/item/rogueweapon/huntingknife
-	triumph_cost = 6
-
-/datum/loadout_item/tri_kazengun_dagger
-	name = "Kazengun Dagger"
-	path = /obj/item/rogueweapon/huntingknife/idagger/steel/kazengun
-	triumph_cost = 5
-
-/datum/loadout_item/tri_vaquero_dagger
-	name = "Vaquero Parrying Dagger"
-	path = /obj/item/rogueweapon/huntingknife/idagger/steel/parrying/vaquero
-	triumph_cost = 6
-
-// SWORDS
-/datum/loadout_item/tri_mulyeog_hench
-	name = "Mulyeog (Hench)"
-	path = /obj/item/rogueweapon/sword/sabre/mulyeog/rumahench
-	triumph_cost = 6
-
-/datum/loadout_item/tri_shamshir
-	name = "Shamshir"
-	path = /obj/item/rogueweapon/sword/sabre/shamshir
-	triumph_cost = 6
-
-/datum/loadout_item/tri_vaquero_rapier
-	name = "Vaquero Rapier"
-	path = /obj/item/rogueweapon/sword/rapier/vaquero
-	triumph_cost = 6
-
-// SHIELDS
-/datum/loadout_item/tri_atgervi_kite_shield
-	name = "Atgervi Kite Shield"
-	path = /obj/item/rogueweapon/shield/atgervi
-	triumph_cost = 5
-
 // POLEARMS & STAVES
 /datum/loadout_item/tri_naledi_staff
-	name = "Naledi Staff"
-	path = /obj/item/rogueweapon/woodstaff/naledi
+	name = "Naledi Staff (Decorative)"
+	path = /obj/item/rogueweapon/woodstaff/decorative
 	triumph_cost = 5
 
 
@@ -1614,6 +1744,27 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Lord's Cloak"
 	path = /obj/item/clothing/cloak/lordcloak
 	triumph_cost = 10
+
+/datum/loadout_item/tri_lord_cloak/nobility_check(client/C)
+	var/datum/preferences/P = C.prefs
+	if(!P)
+		return FALSE
+	// Check if user selected Nobility virtue
+	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
+		return TRUE
+	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
+		return TRUE
+	// Check if user has high priority for any noble, courtier, or yeoman job
+	for(var/job_title in GLOB.noble_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.courtier_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	for(var/job_title in GLOB.yeoman_positions)
+		if(P.job_preferences[job_title] == JP_HIGH)
+			return TRUE
+	return FALSE
 
 //==========================
 //Donator Section

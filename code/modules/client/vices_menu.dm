@@ -574,6 +574,28 @@
 	if(virtue.custom_text)
 		html += "<div class='statpack-stats' style='margin-top: 4px;'>" + virtue.custom_text + "</div>"
 	
+	// Display skills granted
+	if(LAZYLEN(virtue.added_skills))
+		html += "<div class='statpack-stats' style='margin-top: 8px;'><strong>Skills granted:</strong><br>"
+		for(var/skill in virtue.added_skills)
+			if(!islist(skill))
+				var/datum/skill/S = skill
+				var/skill_name = initial(S.name)
+				html += "• [skill_name]: +[virtue.added_skills[skill]]<br>"
+			else
+				var/list/skill_block = skill
+				var/datum/skill/S = skill_block[1]
+				var/skill_name = initial(S.name)
+				html += "• [skill_name]: +[skill_block[2]] (max [skill_block[3]])<br>"
+		html += "</div>"
+	
+	// Display stashed items
+	if(LAZYLEN(virtue.added_stashed_items))
+		html += "<div class='statpack-stats' style='margin-top: 8px;'><strong>Stashed items:</strong><br>"
+		for(var/item_name in virtue.added_stashed_items)
+			html += "• [item_name]<br>"
+		html += "</div>"
+	
 	html += "</div>"
 	
 	if(statpack.name == "Virtuous")
@@ -585,6 +607,28 @@
 		
 		if(virtuetwo.custom_text)
 			html += "<div class='statpack-stats' style='margin-top: 4px;'>" + virtuetwo.custom_text + "</div>"
+		
+		// Display skills granted for second virtue
+		if(LAZYLEN(virtuetwo.added_skills))
+			html += "<div class='statpack-stats' style='margin-top: 8px;'><strong>Skills granted:</strong><br>"
+			for(var/skill in virtuetwo.added_skills)
+				if(!islist(skill))
+					var/datum/skill/S = skill
+					var/skill_name = initial(S.name)
+					html += "• [skill_name]: +[virtuetwo.added_skills[skill]]<br>"
+				else
+					var/list/skill_block = skill
+					var/datum/skill/S = skill_block[1]
+					var/skill_name = initial(S.name)
+					html += "• [skill_name]: +[skill_block[2]] (max [skill_block[3]])<br>"
+			html += "</div>"
+		
+		// Display stashed items for second virtue
+		if(LAZYLEN(virtuetwo.added_stashed_items))
+			html += "<div class='statpack-stats' style='margin-top: 8px;'><strong>Stashed items:</strong><br>"
+			for(var/item_name in virtuetwo.added_stashed_items)
+				html += "• [item_name]<br>"
+			html += "</div>"
 	
 	html += {"
 			<div class="actions">
@@ -662,9 +706,8 @@
 		if(loadout_slot && loadout_slot.triumph_cost)
 			loadout_spent += loadout_slot.triumph_cost
 
-	// Also subtract language spending to reflect shared pool
-	var/lang_spent_for_pool = get_language_points_spent()
-	var/loadout_remaining = total_points - (loadout_spent + lang_spent_for_pool)
+	// Loadout uses its own point pool (not shared with languages)
+	var/loadout_remaining = total_points - loadout_spent
 	
 	html += {"
 			<div class='statpack-section'>
@@ -676,7 +719,7 @@
 				<div style='background: rgba(123, 83, 83, 0.2); border: 1px solid [theme["border"]]; padding: 8px; margin-top: 8px; font-size: 0.7em;'>
 					<div style='font-weight: bold; color: [theme["text"]]; margin-bottom: 4px;'>⚠ Loadout Item Modifications:</div>
 					<div style='color: [theme["label"]]; line-height: 1.4;'>
-						<b>ARMOR:</b> Reduced by 50% • Crit prevention removed • Armor class set to Light<br>
+						<b>ARMOR:</b> Set to basic NORMAL clothing values (slash = 10, stab = 20) • Crit prevention removed • Armor class set to Light<br>
 						<b>WEAPONS:</b> Damage reduced by 30% • Weapon defense reduced by 50%<br>
 						<b>ALL ITEMS:</b> Sell price set to 0
 					</div>
@@ -755,25 +798,24 @@
 			<h2 style='color: [theme["text"]]; margin: 0 0 20px 0;'>📜 Additional Language Selection 📜</h2>
 	"}
 	
-	// Calculate language costs (1 point each)
+	// Calculate language costs using actual player TRIUMPHS (slot 1 = 2 triumphs, slot 2 = 4 triumphs)
 	var/lang_spent = 0
-	var/purchased_count = 0
 	if(extra_language_1 && extra_language_1 != "None")
-		purchased_count++
+		lang_spent += 2
 	if(extra_language_2 && extra_language_2 != "None")
-		purchased_count++
+		lang_spent += 4
 
-	lang_spent = purchased_count * 1
-	// Subtract loadout spend to reflect shared pool
-	var/lang_remaining = total_points - (lang_spent + loadout_spent)
+	// Languages use ACTUAL triumph pool from player, NOT the vice/point pool
+	var/total_triumphs = user.get_triumphs()
+	var/lang_remaining = total_triumphs - lang_spent
 	
 	html += {"
 			<div class='statpack-section' style='background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; padding: 15px; margin-bottom: 20px;'>
-				<p style='margin: 0 0 10px 0;'>ℹ You get <b>one free language</b> from background, plus up to 2 additional languages (1 point each). Your race may grant languages by default.</p>
+				<p style='margin: 0 0 10px 0;'>ℹ You get <b>one free language</b> from background, plus up to 2 additional languages. Slot 1 costs 2 Triumphs, Slot 2 costs 4 Triumphs. Your race may grant languages by default.</p>
 				<div style='font-size: 1em;'>
-					<span style='color: #4CAF50;'>Available Points: [lang_remaining]</span> | 
+					<span style='color: #4CAF50;'>Available Triumphs: [lang_remaining]</span> | 
 					<span style='color: [theme["text"]];'>Spent (Languages): [lang_spent]</span> / 
-					<span>Total Points: [total_points]</span>
+					<span>Total Triumphs: [total_triumphs]</span>
 				</div>
 			</div>
 			<div style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;'>
@@ -809,16 +851,17 @@
 	
 	html += "</div>"
 	
-	// Generate 2 paid language slots (1 point each)
+	// Generate 2 paid language slots (slot 1 = 2 points, slot 2 = 4 points)
 	for(var/i = 1 to 2)
 		var/slot_var = i == 1 ? "extra_language_1" : "extra_language_2"
 		var/current_lang_path = vars[slot_var]
+		var/slot_cost = i == 1 ? 2 : 4
 		
 		html += "<div class='vice-slot'>"
 		html += "<div class='slot-header'>"
 		html += "<span class='slot-number'>Language Slot [i]</span>"
 		if(current_lang_path && current_lang_path != "None")
-			html += "<span class='slot-cost'>1 Point</span>"
+			html += "<span class='slot-cost'>[slot_cost] Triumphs</span>"
 		html += "</div>"
 		
 		if(current_lang_path && current_lang_path != "None")
@@ -891,7 +934,7 @@
 				usr << browse(null, "window=loadout_select")
 				return
 		
-		// Check point cost against shared pool
+		// Check point cost against loadout pool (not shared with languages)
 		if(selected.triumph_cost)
 			var/total_points = get_total_points()
 			var/spent_points = 0
@@ -903,9 +946,6 @@
 				var/datum/loadout_item/other_slot = vars[i == 1 ? "loadout" : "loadout[i]"]
 				if(other_slot && other_slot.triumph_cost)
 					spent_points += other_slot.triumph_cost
-			
-			// Include language spend
-			spent_points += get_language_points_spent()
 			
 			if(spent_points + selected.triumph_cost > total_points)
 				to_chat(usr, span_warning("Not enough points! Need [selected.triumph_cost], but only have [total_points - spent_points] remaining."))
@@ -1100,6 +1140,7 @@
 						selected_loadouts += existing_item.type
 				
 				// Build HTML menu with icons
+				var/pref_ref = "\ref[src]"
 				var/html = {"
 					<html>
 					<head>
@@ -1168,6 +1209,21 @@
 							color: #ff6b6b;
 							font-size: 0.75em;
 						}
+						.locked-item {
+							opacity: 0.5;
+							cursor: not-allowed !important;
+							background: #00000066 !important;
+						}
+						.locked-item:hover {
+							background: #00000066 !important;
+							border-color: #7b5353 !important;
+						}
+						.lock-reason {
+							color: #ff9b42;
+							font-size: 0.7em;
+							margin-top: 3px;
+							font-style: italic;
+						}
 						h2 {
 							color: #aa8f8f;
 							text-align: center;
@@ -1189,10 +1245,18 @@
 				for(var/path as anything in GLOB.loadout_items)
 					var/datum/loadout_item/item = GLOB.loadout_items[path]
 					
+					var/is_locked = FALSE
+					var/lock_reason = ""
+					
 					// Check if donator item
 					if(item.donoritem && usr?.ckey)
 						if(!item.donator_ckey_check(usr.ckey))
 							continue
+					
+					// Check if nobility requirement is met
+					if(!item.nobility_check(usr?.client))
+						is_locked = TRUE
+						lock_reason = "🔒 Requires: Nobility virtue, or High priority for Noble/Courtier/Yeoman jobs"
 					
 					// Skip if already selected in another slot
 					var/datum/loadout_item/current_item = vars[slot_var]
@@ -1216,16 +1280,22 @@
 					if(item.triumph_cost)
 						cost_text = "<span class='item-cost'>(-[item.triumph_cost] PT)</span>"
 					
+					var/locked_class = is_locked ? "locked-item" : ""
+					var/onclick_action = is_locked ? "" : "onclick='window.location=\"byond://?src=[pref_ref];select_loadout_item=[icon_counter];slot=[slot]\"'"
+					var/lock_indicator = is_locked ? "<div class='lock-reason'>[lock_reason]</div>" : ""
+					
 					html += {"
-						<div class='item-entry' data-name='[display_name]' onclick='window.location="byond://?src=\ref[src];select_loadout_item=[icon_counter];slot=[slot]"'>
+						<div class='item-entry [locked_class]' data-name='[display_name]' [onclick_action]>
 							<img class='item-icon' src='loadout_select_[icon_counter].png' onerror='this.style.display=\"none\"'>
 							<div class='item-info'>
 								<div class='item-name'>[display_name] [cost_text]</div>
+								[lock_indicator]
 							</div>
 						</div>
 					"}
 					
-					loadouts_available["[icon_counter]"] = item
+					if(!is_locked)
+						loadouts_available["[icon_counter]"] = item
 				
 				html += {"
 					</div>
@@ -1388,7 +1458,7 @@
 					choices[a_language.name] = language
 					qdel(a_language)
 				
-				var/chosen_language = input(usr, "Choose a language (1 point each):", "Language Selection") as null|anything in choices
+				var/chosen_language = input(usr, "Choose a language (Slot 1: 2 Triumphs, Slot 2: 4 Triumphs):", "Language Selection") as null|anything in choices
 				
 				if(chosen_language)
 					if(chosen_language == "None")
@@ -1396,30 +1466,17 @@
 					else
 						var/language_path = choices[chosen_language]
 						
-						// Check point cost against shared pool (1 point per language)
-						var/total_points = get_total_points()
+						// Check triumph cost against ACTUAL player triumph pool (not vice points)
+						var/slot_cost = slot == 1 ? 2 : 4
+						var/total_triumphs = usr.get_triumphs()
 						var/spent_points = 0
-						
 						// Count current language purchases (excluding this slot)
+						var/other_slot = slot == 1 ? 2 : 1
 						var/other_slot_var = slot == 1 ? "extra_language_2" : "extra_language_1"
 						if(vars[other_slot_var] && vars[other_slot_var] != "None")
-							spent_points += 1
-						
-						// Include loadout spend
-						spent_points += get_loadout_points_spent()
-						
-						if(spent_points + 1 > total_points)
-							to_chat(usr, span_warning("Not enough points! Need 1, but only have [total_points - spent_points] remaining."))
+							spent_points += (other_slot == 1 ? 2 : 4)
+						if(spent_points + slot_cost > total_triumphs)
+							to_chat(usr, span_warning("Not enough triumphs! Need [slot_cost], but only have [total_triumphs - spent_points] remaining."))
 							return
-							
 						vars[slot_var] = language_path
-						to_chat(usr, span_notice("Selected [chosen_language] for language slot [slot]."))
-					
-					save_character()
-				
-				open_vices_menu(usr)
-			
-			if("clear")
-				vars[slot_var] = "None"
-				save_character()
-				open_vices_menu(usr)
+						to_chat(usr, span_notice("Selected [chosen_language] for language slot [slot] ([slot_cost] Triumphs)."))

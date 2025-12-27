@@ -51,8 +51,15 @@ GLOBAL_LIST_INIT(character_flaws, list(
 /mob/living/carbon/human/has_flaw(flaw)
 	if(!flaw)
 		return
+	// Check new multiple vices system
+	if(length(vices))
+		for(var/datum/charflaw/vice in vices)
+			if(istype(vice, flaw))
+				return TRUE
+	// Legacy single vice check
 	if(istype(charflaw, flaw))
 		return TRUE
+	return FALSE
 
 /mob/proc/get_flaw(flaw_type)
 	return
@@ -386,15 +393,15 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	var/do_update_msg = TRUE
 	if(new_mammon_amount >= required_mammons)
 		// Feel better
-		if(user.has_stress_event(/datum/stressevent/vice))
+		if(user.has_stress_event(/datum/stressevent/vice/greedy))
 			to_chat(user, span_blue("[new_mammon_amount] mammons... That's more like it.."))
-		user.remove_stress(/datum/stressevent/vice)
+		user.remove_stress(/datum/stressevent/vice/greedy)
 		user.remove_status_effect(/datum/status_effect/debuff/addiction)
 		last_passed_check = world.time
 		do_update_msg = FALSE
 	else
 		// Feel bad
-		user.add_stress(/datum/stressevent/vice)
+		user.add_stress(/datum/stressevent/vice/greedy)
 		user.apply_status_effect(/datum/status_effect/debuff/addiction)
 
 	if(new_mammon_amount == last_checked_mammons)

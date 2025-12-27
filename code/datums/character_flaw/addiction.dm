@@ -9,7 +9,7 @@
 		A.sated = TRUE
 		A.time = initial(A.time) //reset roundstart sate offset to standard
 		A.next_sate = world.time + A.time
-		remove_stress(/datum/stressevent/vice)
+		remove_stress(A.stress_event)  // Remove vice-specific stress event
 		if(A.debuff)
 			remove_status_effect(A.debuff)
 
@@ -22,6 +22,7 @@
 	var/needsate_text
 	var/sated_text = "That's much better..."
 	var/unsate_time
+	var/stress_event = /datum/stressevent/vice  // Specific stress event type for this vice
 
 
 /datum/charflaw/addiction/New()
@@ -47,7 +48,7 @@
 		if(needsate_text)
 			to_chat(user, span_boldwarning("[needsate_text]"))
 	if(!sated)
-		H.add_stress(/datum/stressevent/vice)
+		H.add_stress(stress_event)  // Use vice-specific stress event
 		if(debuff)
 			H.apply_status_effect(debuff)
 
@@ -73,6 +74,7 @@
 	desc = "Drinking alcohol is my favorite thing."
 	time = 40 MINUTES
 	needsate_text = "Time for a drink."
+	stress_event = /datum/stressevent/vice/alcoholic
 
 
 /// KLEPTOMANIAC
@@ -82,6 +84,7 @@
 	desc = "As a child I had to rely on theft to survive. Whether that changed or not, I just can't get over it."
 	time = 30 MINUTES
 	needsate_text = "I need to STEAL something! I'll die if I don't!"
+	stress_event = /datum/stressevent/vice/kleptomaniac
 
 
 /// JUNKIE
@@ -91,6 +94,7 @@
 	desc = "I need a REAL high to take the pain of this rotten world away."
 	time = 40 MINUTES
 	needsate_text = "Time to get really high."
+	stress_event = /datum/stressevent/vice/junkie
 
 /// Smoker
 
@@ -99,6 +103,7 @@
 	desc = "I need to smoke something to take the edge off."
 	time = 40 MINUTES
 	needsate_text = "Time for a flavorful smoke."
+	stress_event = /datum/stressevent/vice/smoker
 
 /// GOD-FEARING
 
@@ -107,6 +112,7 @@
 	desc = "I need to pray to my Patron in their realm, it will make me and my prayers stronger."
 	time = 40 MINUTES
 	needsate_text = "Time to pray to my Patron."
+	stress_event = /datum/stressevent/vice/godfearing
 
 /// SADIST
 
@@ -115,6 +121,7 @@
 	desc = "There is no greater pleasure than the suffering of another."
 	time = 40 MINUTES
 	needsate_text = "I need to hear someone whimper."
+	stress_event = /datum/stressevent/vice/sadist
 
 /// MASOCHIST
 
@@ -123,4 +130,5 @@
 	desc = "I love the feeling of pain, so much I can't get enough of it."
 	time = 40 MINUTES
 	needsate_text = "I need someone to HURT me."
+	stress_event = /datum/stressevent/vice/masochist
 

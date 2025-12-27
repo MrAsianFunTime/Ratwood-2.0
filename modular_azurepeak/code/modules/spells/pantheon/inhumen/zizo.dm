@@ -116,7 +116,8 @@
 	releasedrain = 90
 	no_early_release = TRUE
 	movement_interrupt = TRUE
-	recharge_time = 1 MINUTES
+	recharge_time = 2 MINUTES
+	var/list/excluded_bodyparts = list(/obj/item/bodypart/head)
 	hide_charge_effect = TRUE
 
 /obj/effect/proc_holder/spell/invoked/rituos/miracle
@@ -125,7 +126,6 @@
 	associated_skill = /datum/skill/magic/holy
 
 /obj/effect/proc_holder/spell/invoked/rituos/proc/check_ritual_progress(mob/living/carbon/user)
-	var/list/excluded_bodyparts = list(/obj/item/bodypart/head, /obj/item/bodypart/chest)
 	var/rituos_complete = TRUE
 	for (var/obj/item/bodypart/our_limb in user.bodyparts)
 		if (our_limb.type in excluded_bodyparts)
@@ -136,7 +136,6 @@
 	return rituos_complete
 
 /obj/effect/proc_holder/spell/invoked/rituos/proc/get_skeletonized_bodyparts(mob/living/carbon/user)
-	var/list/excluded_bodyparts = list(/obj/item/bodypart/head, /obj/item/bodypart/chest)
 	var/skeletonized_parts = list()
 	for (var/obj/item/bodypart/our_limb in user.bodyparts)
 		if (our_limb.type in excluded_bodyparts)
@@ -153,7 +152,7 @@
 	//check to see if we're all skeletonized first
 	var/pre_rituos = check_ritual_progress(user)
 	if (pre_rituos)
-		to_chat(user, span_notice("I have completed Her Lesser Work..."))
+		to_chat(user, span_notice("I have completed Her Lesser Work. Only lichdom awaits me now, but just out of reach..."))
 		return FALSE
 
 	if (user.mind?.has_rituos)
@@ -173,6 +172,23 @@
 		return FALSE
 	
 	var/obj/item/bodypart/part_to_bonify = pick(available_parts)
+
+	//hoo boy. here we go.
+	var/list/possible_parts = user.bodyparts.Copy()
+	var/list/skeletonized_parts = get_skeletonized_bodyparts(user)
+
+	for(var/obj/item/bodypart/BP in possible_parts)
+		for(var/bodypart_type in excluded_bodyparts)
+			if(istype(BP, bodypart_type))
+				possible_parts -= BP
+				break
+		for(var/skeleton_part in skeletonized_parts)
+			if (istype(BP, skeleton_part))
+				possible_parts -= BP
+				break
+
+	var/obj/item/bodypart/the_part = pick(possible_parts)
+	var/obj/item/bodypart/part_to_bonify = user.get_bodypart(the_part.body_zone)
 
 	var/list/choices = list()
 	var/list/spell_choices = GLOB.learnable_spells
@@ -217,6 +233,7 @@
 		ADD_TRAIT(user, TRAIT_NOHUNGER, "[type]")
 		ADD_TRAIT(user, TRAIT_NOBREATH, "[type]")
 		ADD_TRAIT(user, TRAIT_ARCYNE_T3, "[type]")
+		ADD_TRAIT(user, TRAIT_OVERTHERETIC, "[type]")
 		if (prob(33))
 			to_chat(user, span_small("...what have I done?"))
 		return TRUE

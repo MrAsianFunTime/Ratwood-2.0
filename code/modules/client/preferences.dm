@@ -29,6 +29,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/list/loadout_preset_1
 	var/list/loadout_preset_2
 	var/list/loadout_preset_3
+	// Temporary storage for loadout item selection (per-user to prevent race conditions)
+	var/list/temp_loadout_selection
 
 	//Antag preferences
 	var/list/be_special = list()		//Special role selection

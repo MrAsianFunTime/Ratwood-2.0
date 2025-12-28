@@ -1247,21 +1247,18 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	
 	// Handle loadout item selection from icon menu
 	if(href_list["select_loadout_item"])
-		if(!GLOB.temp_loadout_selection)
+		if(!temp_loadout_selection)
 			return
 		
 		var/item_id = href_list["select_loadout_item"]
 		var/slot = text2num(href_list["slot"])
-		var/list/selection_data = GLOB.temp_loadout_selection
-		
-		if(selection_data["prefs"] != src)
-			return
+		var/list/selection_data = temp_loadout_selection
 		
 		var/list/items = selection_data["items"]
 		var/datum/loadout_item/selected = items[item_id]
 		
 		if(!selected || !slot)
-			GLOB.temp_loadout_selection = null
+			temp_loadout_selection = null
 			usr << browse(null, "window=loadout_select")
 			return
 		
@@ -1274,7 +1271,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 			var/datum/loadout_item/other_item = vars[i == 1 ? "loadout" : "loadout[i]"]
 			if(other_item && other_item.type == selected.type)
 				to_chat(usr, span_warning("This item is already selected in slot [i]! Each item can only be selected once."))
-				GLOB.temp_loadout_selection = null
+				temp_loadout_selection = null
 				usr << browse(null, "window=loadout_select")
 				return
 		
@@ -1293,14 +1290,14 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 			
 			if(spent_points + selected.triumph_cost > total_points)
 				to_chat(usr, span_warning("Not enough points! Need [selected.triumph_cost], but only have [total_points - spent_points] remaining."))
-				GLOB.temp_loadout_selection = null
+				temp_loadout_selection = null
 				usr << browse(null, "window=loadout_select")
 				return
 		
 		vars[slot_var] = selected
 		to_chat(usr, span_notice("Selected [selected.name] for slot [slot]."))
 		
-		GLOB.temp_loadout_selection = null
+		temp_loadout_selection = null
 		usr << browse(null, "window=loadout_select")
 		save_character()
 		open_vices_menu(usr)
@@ -1562,7 +1559,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 		switch(action)
 			if("item")
 				// Clear any stale selection data and close existing windows
-				GLOB.temp_loadout_selection = null
+				temp_loadout_selection = null
 				usr << browse(null, "window=loadout_select")
 				
 				// Initialize lists for available loadouts and selected loadouts
@@ -1759,7 +1756,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 				"}
 				
 				// Store the available items temporarily for callback and show window
-				GLOB.temp_loadout_selection = list("prefs" = src, "items" = loadouts_available, "slot" = slot)
+				temp_loadout_selection = list("prefs" = src, "items" = loadouts_available, "slot" = slot)
 				usr << browse(html, "window=loadout_select;size=500x700")
 				return
 			

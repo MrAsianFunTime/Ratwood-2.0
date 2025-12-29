@@ -442,16 +442,57 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	vice3 = preset["vice3"]
 	vice4 = preset["vice4"]
 	vice5 = preset["vice5"]
-	loadout = preset["loadout"]
-	loadout2 = preset["loadout2"]
-	loadout3 = preset["loadout3"]
-	loadout4 = preset["loadout4"]
-	loadout5 = preset["loadout5"]
-	loadout6 = preset["loadout6"]
-	loadout7 = preset["loadout7"]
-	loadout8 = preset["loadout8"]
-	loadout9 = preset["loadout9"]
-	loadout10 = preset["loadout10"]
+	
+	// Validate loadout datums exist in GLOB before restoring
+	if(preset["loadout"] && (preset["loadout"] in GLOB.loadout_items.Copy()))
+		loadout = preset["loadout"]
+	else
+		loadout = null
+	
+	if(preset["loadout2"] && (preset["loadout2"] in GLOB.loadout_items.Copy()))
+		loadout2 = preset["loadout2"]
+	else
+		loadout2 = null
+	
+	if(preset["loadout3"] && (preset["loadout3"] in GLOB.loadout_items.Copy()))
+		loadout3 = preset["loadout3"]
+	else
+		loadout3 = null
+	
+	if(preset["loadout4"] && (preset["loadout4"] in GLOB.loadout_items.Copy()))
+		loadout4 = preset["loadout4"]
+	else
+		loadout4 = null
+	
+	if(preset["loadout5"] && (preset["loadout5"] in GLOB.loadout_items.Copy()))
+		loadout5 = preset["loadout5"]
+	else
+		loadout5 = null
+	
+	if(preset["loadout6"] && (preset["loadout6"] in GLOB.loadout_items.Copy()))
+		loadout6 = preset["loadout6"]
+	else
+		loadout6 = null
+	
+	if(preset["loadout7"] && (preset["loadout7"] in GLOB.loadout_items.Copy()))
+		loadout7 = preset["loadout7"]
+	else
+		loadout7 = null
+	
+	if(preset["loadout8"] && (preset["loadout8"] in GLOB.loadout_items.Copy()))
+		loadout8 = preset["loadout8"]
+	else
+		loadout8 = null
+	
+	if(preset["loadout9"] && (preset["loadout9"] in GLOB.loadout_items.Copy()))
+		loadout9 = preset["loadout9"]
+	else
+		loadout9 = null
+	
+	if(preset["loadout10"] && (preset["loadout10"] in GLOB.loadout_items.Copy()))
+		loadout10 = preset["loadout10"]
+	else
+		loadout10 = null
 	loadout_1_name = preset["loadout_1_name"]
 	loadout_2_name = preset["loadout_2_name"]
 	loadout_3_name = preset["loadout_3_name"]
@@ -1800,7 +1841,11 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 				if(!current)
 					return
 				
-				var/list/color_choices = list("None") + CLOTHING_COLOR_NAMES
+				// Use dye bin colors for more variety
+				var/list/color_choices = list("None")
+				for(var/color_name in GLOB.dye_colors)
+					color_choices += color_name
+				
 				var/new_color = tgui_input_list(usr, "Choose a color for this item:", "Item Color", color_choices, vars["loadout_[slot]_hex"])
 				
 				if(new_color)

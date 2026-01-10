@@ -5,7 +5,7 @@
 	name = "Arachnid"
 	id = "lamia"
 	desc = "<b>Arachnid</b><br>\
-	(+1 Strength, -1 Speed, Longstrider Trait, Venomous Trait)"
+	(+1 Strength, -1 Speed, Webwalk Trait, Longstrider Trait, Venomous Trait)"
 
 	expanded_desc = ""
 

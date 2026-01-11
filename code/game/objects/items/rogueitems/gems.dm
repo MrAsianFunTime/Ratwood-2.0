@@ -149,7 +149,7 @@
 
 /obj/item/roguegem/oyster
 	name = "fossilized clam"
-	desc = "A fossilized clam shell. It would be a good idea to pry it open with a knife."
+	desc = "A fossilized clam shell. It would be a good idea to pry it open with a chisel."
 	icon = 'icons/roguetown/gems/gem_shell.dmi'
 	icon_state = "oyster_closed"
 	sellprice = 5

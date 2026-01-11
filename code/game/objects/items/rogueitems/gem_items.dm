@@ -18,7 +18,7 @@
 
 /obj/item/carvedgem/shell/openoyster
 	name = "open fossilized clam"
-	desc = "A clamshell that has recently been opened. You could split the shell in two with a knife."
+	desc = "A clamshell that has recently been opened. You could split the shell in two with a chisel."
 	icon_state = "oyster_open"
 	grid_height = 32
 	grid_width = 32

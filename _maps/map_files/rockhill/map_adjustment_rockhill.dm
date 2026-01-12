@@ -18,8 +18,8 @@
 	)
 	tutorial_adjust = list(
 		/datum/job/roguetown/physician = "You are a master physician, trusted by the Duke themself to administer expert care to the Royal family, the court, \
-		its protectors and its subjects. While primarily a resident of the keep in the manors medical wing, you also have access\
-		 to local hightown clinic, where lesser licensed apothecaries ply their trade under your occasional passing tutelage.",
+		its protectors and its subjects. While primarily a resident of the keep in the manors medical wing, you also have access \
+		 to the local hightown clinic, where lesser licensed apothecaries ply their trade under your occasional passing tutelage.",
 		/datum/job/roguetown/bogguardsman = "Typically a denizen of the sparsely populated mountains and swamps surrounding Rockhill, you volunteered up with the wardens\
 				-a group of ranger types who keep a vigil over Lowtown and the untamed wilderness. \
 				While Wardens have no higher authority, operating as a fraternity of rangers, you will be called upon as members of the garrison by the Marshal or the Crown. \

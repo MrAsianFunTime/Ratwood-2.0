@@ -255,11 +255,6 @@ GLOBAL_LIST_EMPTY(cursedsamples)
 GLOBAL_LIST_EMPTY(accused)
 GLOBAL_LIST_EMPTY(confessors)
 
-//preference stuff
-#define FAMILY_NONE 1
-#define FAMILY_PARTIAL 2
-#define FAMILY_FULL 3
-
 GLOBAL_LIST_EMPTY(head_bounties)
 GLOBAL_LIST_EMPTY(board_viewers)
 GLOBAL_LIST_EMPTY(noticeboard_posts)

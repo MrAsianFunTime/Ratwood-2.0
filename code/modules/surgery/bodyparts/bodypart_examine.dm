@@ -330,7 +330,7 @@
 	var/broken_plural
 	var/damaged_plural
 	//Sets organs into their proper list
-	for(var/O in internal_organs)
+	for(var/obj/item/organ/organ as anything in internal_organs)
 		var/obj/item/organ/organ = O
 		if(organ.organ_flags & ORGAN_FAILING)
 			if(broken.len)

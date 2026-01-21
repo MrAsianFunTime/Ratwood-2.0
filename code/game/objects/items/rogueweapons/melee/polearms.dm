@@ -35,6 +35,8 @@
 	name = "eagle's beak bash"
 	damfactor = 1
 	reach = 2
+	blunt_chipping = TRUE
+	blunt_chip_strength = BLUNT_CHIP_STRONG
 
 /datum/intent/spear/bash/ranged
 	reach = 2
@@ -911,6 +913,7 @@
 /datum/intent/mace/smash/eaglebeak
 	reach = 2
 	clickcd = CLICK_CD_HEAVY // Slightly longer since it has RANGE. Don't want to increase charge time more since it is unreliable.
+	blunt_chip_strength = BLUNT_CHIP_ABSURD
 
 /obj/item/rogueweapon/spear/bronze
 	name = "bronze spear"

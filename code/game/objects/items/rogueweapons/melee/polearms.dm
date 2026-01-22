@@ -1442,16 +1442,14 @@
 
 /obj/item/rogueweapon/spear/otava/Initialize()
 	. = ..()
-	// toying a bit to see if i can make it be orange and silver, as per otava
+	// toying a bit to see if i can make it be orange
 	detail_tag = "_det"
 	detail_color = "#FFA500"
-	if(prob(1)) // Keep variable but force value
-		secondary_color = "#C0C0C0" // Silver for secondary
 	update_icon()
 	GLOB.lordcolor += src
 
 /obj/item/rogueweapon/spear/otava/lordcolor(primary,secondary)
-	// Ignore incoming colors, always use orange and silver
+	// Ignore incoming colors, always use orange
 	detail_tag = "_det"
 	detail_color = "#FFA500"
 	update_icon()

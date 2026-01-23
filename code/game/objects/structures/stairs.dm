@@ -138,7 +138,7 @@
 	if(pulling)
 		if(pulling in L.buckled_mobs)
 			was_pulled_buckled = TRUE
-	if((prev_z_level < new_z_level) && !was_pulled_buckled) // Going UP a Z-level (and no being pulled)
+	if((prev_z_level < new_z_level)) // Going UP a Z-level (Only applies stamina cost to the person walking up, not the pulled mob)
 		L.stamina_add(stamina_cost)
 	L.forceMove(newtarg)
 	if(pulling)
@@ -147,3 +147,17 @@
 		L.start_pulling(pulling, supress_message = TRUE)
 		if(was_pulled_buckled) // Assume this was a fireman carry since piggybacking is not a thing
 			L.buckle_mob(pulling, TRUE, TRUE, 90, 0, 0)
+		if(isliving(pulling))
+			var/mob/living/P = pulling
+			while(P.pulling && isliving(P.pulling))
+				was_pulled_buckled = FALSE
+				pulling = P.pulling
+				P.stop_pulling()
+				pulling.forceMove(newtarg)
+				P.start_pulling(pulling, supress_message = TRUE)
+				if(pulling in P.buckled_mobs)
+					was_pulled_buckled = TRUE
+				if(was_pulled_buckled) // Assume this was a fireman carry since piggybacking is not a thing
+					P.buckle_mob(pulling, TRUE, TRUE, 90, 0, 0)
+				if(isliving(pulling))
+					P = pulling

@@ -29,33 +29,20 @@
 		log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 		update_z(null)
 
-	if (notransform)
+	if(notransform)
 		return
-	if(!loc)
+	if(isnull(loc))
 		return
 
 	//Breathing, if applicable - CURRENTLY NOT IMPLEMENTED
 	//handle_breathing(times_fired)
-
-	if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
-		handle_wounds()
-		handle_embedded_objects()
-		handle_blood()
-		//passively heal even wounds with no passive healing
-		heal_wounds(1)
-
-	//You don't heal your wounds if below a certain blood volume, or you're skullcracked. Sorry, buddy.
-	//Death is checked in on_life for wounds, so no need to set it here.
-	//Corpses don't passive heal wounds, regardless.
-	if(blood_volume > BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_PARALYSIS))
-		handle_wounds()
-	//Funny thing here, however. If they ARE skullcracked, we throw them a bone. In direct opposition to the above.
-	//Passive heals until they get out of skullcrack state. Just so they're not perma skullcracked without doctors.
-	//You can still break legs and the like without it passive healing. Do that instead.
-	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
-		var/list/wounds = get_wounds()
-		if(wounds.len > 0)
-			heal_wounds(0.3, list(/datum/wound/fracture/head, /datum/wound/fracture/head/brain, /datum/wound/fracture/neck))
+	if(times_fired % 2 == 0) // Every other tick, handle simple wounds
+		if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
+			handle_wounds()
+			handle_embedded_objects()
+			handle_blood()
+			//passively heal even wounds with no passive healing
+			heal_wounds(3)
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
 		return

@@ -147,3 +147,6 @@
 	"...measuring the powder isn't an exact science, the grizzled mercenary explains. It's by eye and ear, once you've the understanding. His nub of an arm argues otherwise..."
 	)
 	expert_name = "Gunner"
+	randomable_dream_xp = FALSE
+	max_untraited_level = SKILL_LEVEL_JOURNEYMAN//Minimum to use these properly.
+	trait_uncap = list(TRAIT_FUSILIER = SKILL_LEVEL_LEGENDARY)

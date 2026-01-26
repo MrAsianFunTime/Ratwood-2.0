@@ -243,6 +243,8 @@ At least, it should. Fingers crossed.
 		accident_chance =10
 	if(firearm_skill >= 5)
 		accident_chance =0
+	if(HAS_TRAIT(user, TRAIT_FUSILIER))//Regardless of skill, we force it to 0 if you're trained properly.
+		accident_chance =0
 	if(user.client)
 		if(user.client.chargedprog >= 100)
 			spread = 0

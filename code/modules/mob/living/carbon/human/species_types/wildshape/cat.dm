@@ -218,4 +218,4 @@
 			rid = /datum/reagent/water
 			target.reagents.add_reagent(rid, ramount)
 			if(prob(10))
-				targets[1].werewolf_infect_attempt(CHEST)
+				target.werewolf_infect_attempt(CHEST)

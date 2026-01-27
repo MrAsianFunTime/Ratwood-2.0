@@ -193,6 +193,11 @@
 	cost = 20
 	contains = list(/obj/item/rogueweapon/sword/long/death)
 
+/datum/supply_pack/rogue/Knight/krieg
+	name = "Kriegmesser"
+	cost = 20
+	contains = list(/obj/item/rogueweapon/sword/long/kriegmesser)
+
 /datum/supply_pack/rogue/Knight/Zweihandersword
 	name = "Zweihander"
 	cost = 40

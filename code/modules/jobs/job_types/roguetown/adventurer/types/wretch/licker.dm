@@ -28,7 +28,7 @@
 		H.mind.add_antag_datum(new_antag)
 
 /datum/reagent/vampsolution
-	metabolization_rate = 0.5
+	metabolization_rate = 1
 
 /datum/reagent/vampsolution/on_mob_life(mob/living/carbon/M)
 	M.set_drugginess(30)

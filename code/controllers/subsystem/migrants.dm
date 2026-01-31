@@ -267,10 +267,8 @@ SUBSYSTEM_DEF(migrants)
 			fakekey = get_fake_key(character.ckey)
 		GLOB.character_list[character.mobid] = "[fakekey] was [character.real_name] ([rank])<BR>"
 		GLOB.character_ckey_list[character.real_name] = character.ckey
-		if(!character.mind.special_role)
-			GLOB.actors_list[character.mobid] = "[character.real_name] as [rank]<BR>"
 		if(character.mind.special_role == "Court Agent")
-			GLOB.actors_list[character.mobid] = "[character.real_name] as Adventurer<BR>"
+			GLOB.actors_list["Wanderers"] += list(character.mobid, "[character.real_name] as Adventurer<BR>")
 		log_character("[character.ckey] ([fakekey]) - [character.real_name] - [rank]")
 	if(GLOB.respawncounts[character.ckey])
 		var/AN = GLOB.respawncounts[character.ckey]
@@ -546,8 +544,14 @@ SUBSYSTEM_DEF(migrants)
 			global_triumph_contributions[ckey] -= wave.type
 
 /datum/controller/subsystem/migrants/proc/update_ui()
+	var/countdown_text
+	if(!current_wave)
+		countdown_text = "The mist will clear out of the way in [time_until_next_wave / (1 SECONDS)] seconds..."
+	else
+		countdown_text = "They will arrive in [wave_timer / (1 SECONDS)] seconds..."
 	for(var/client/client as anything in get_all_migrants())
-		client.prefs.migrant.show_ui()
+		if(client?.mob)
+			client.mob << output(countdown_text, "migration.browser:update_migrant_countdown")
 
 /datum/controller/subsystem/migrants/proc/get_active_migrant_amount()
 	var/list/migrants = get_active_migrants()

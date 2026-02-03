@@ -59,6 +59,8 @@
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/convert_heretic)
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/wound_heal)
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/silence)//Shut that guy up!
+	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/nondetection)//For the purposes of meeting folks.
+	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/message)//See above.
 	H.verbs |= /mob/living/carbon/human/proc/completesermon_evil
 	H.verbs |= /mob/living/carbon/human/proc/revelations
 

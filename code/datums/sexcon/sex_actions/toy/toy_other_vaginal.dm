@@ -46,8 +46,6 @@
 
 /datum/sex_action/toy_other_vagina/pegging
 	name = "Peg their cunt"
-	category = SEX_CATEGORY_PENETRATE
-	target_sex_part = SEX_PART_CUNT
 	pegging = TRUE
 
 /datum/sex_action/toy_other_vagina/pegging/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)

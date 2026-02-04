@@ -42,8 +42,6 @@
 
 /datum/sex_action/toy_other_anal/pegging
 	name = "Peg their butt"
-	category = SEX_CATEGORY_PENETRATE
-	target_sex_part = SEX_PART_ANUS
 	pegging = TRUE
 
 /datum/sex_action/toy_other_anal/pegging/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)

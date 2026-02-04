@@ -39,6 +39,4 @@
 
 /datum/sex_action/toy_other_oral/pegging
 	name = "Peg their mouth"
-	category = SEX_CATEGORY_PENETRATE
-	target_sex_part = SEX_PART_JAWS
 	pegging = TRUE

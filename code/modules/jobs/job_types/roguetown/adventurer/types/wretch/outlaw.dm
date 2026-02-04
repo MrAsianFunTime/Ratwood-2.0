@@ -85,7 +85,8 @@
 	outfit = /datum/outfit/job/roguetown/wretch/marauder
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
 	subclass_languages = list(/datum/language/thievescant)
-	//Still a bit quick but sturdier. A bit more stupid, though.
+	traits_applied = list(TRAIT_MEDIUMARMOR)	//let us Try giving them medium armor. What can go wrong?!
+	//Still a bit quick but sturdier. A bit more stupid, though.	
 	subclass_stats = list(
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
@@ -117,7 +118,7 @@
 	to_chat(H, span_warning("You are a brigand and a pillager - you prefer to get your coins with direct means from unfortunate victims."))
 	head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
-	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/light		//Give them a bone roundstart, they have no dodge or crit resist or medium armor. What they get, they get.
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron		//iron breastplate so they need to find a way to upgrade it. Only piece of medium armor they get
 	cloak = /obj/item/clothing/cloak/stabard/dungeon
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -136,7 +137,7 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,	//Small health vial
 		)
 	if(H.mind)
-		var/weapons = list("Just A Heater Shield","Dagger + Crossbow", "Militia Warpick + Heater Shield", "Militia Spear + Heater Shield", "Militia War-Axe", "Militia Goedendag")
+		var/weapons = list("Just A Heater Shield","Dagger + Crossbow", "Militia Warpick + Heater Shield", "Militia Spear + Heater Shield", "Militia War-Axe", "Militia Goedendag", "Flail + Heater Shield")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
@@ -164,4 +165,8 @@
 			if ("Militia Goedendag")
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
 				l_hand = /obj/item/rogueweapon/woodstaff/militia
+			if ("Flail + Heater Shield")
+				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
+				l_hand = /obj/item/rogueweapon/flail/sflail
+				backr = /obj/item/rogueweapon/shield/heater
 		wretch_select_bounty(H)

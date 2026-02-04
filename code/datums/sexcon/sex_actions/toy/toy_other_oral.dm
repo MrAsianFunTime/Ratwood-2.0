@@ -3,6 +3,7 @@
 	category = SEX_CATEGORY_PENETRATE
 	target_sex_part = SEX_PART_JAWS
 	var/pegging = FALSE
+	var/oxy_damage = FALSE
 
 /datum/sex_action/toy_other_oral/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
@@ -40,3 +41,20 @@
 /datum/sex_action/toy_other_oral/pegging
 	name = "Peg their mouth"
 	pegging = TRUE
+
+/datum/sex_action/toy_other_oral/pegging/throat
+	name = "Peg their throat"
+	oxy_damage = TRUE
+
+/datum/sex_action/toy_other_oral/pegging/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!oxy_damage)
+		user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] pegs [target]'s mouth."))
+	else
+		user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] pegs [target]'s throat."))
+	playsound(target, 'sound/misc/mat/segso.ogg', 50, TRUE, -2, ignore_walls = FALSE)
+	user.sexcon.do_thrust_animate(target)
+
+	user.sexcon.perform_sex_action(target, 0, 7, FALSE)
+	if(oxy_damage)
+		user.sexcon.perform_deepthroat_oxyloss(target, 2.6)
+	target.sexcon.handle_passive_ejaculation()

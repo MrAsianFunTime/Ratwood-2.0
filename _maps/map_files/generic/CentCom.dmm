@@ -1471,14 +1471,6 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"gN" = (
-/obj/structure/roguewindow/stained/zizo{
-	icon_state = "stained-zizobr";
-	opacity = 0;
-	density = 0
-	},
-/turf/open/floor/rogue/dirt,
-/area/rogue/under/cave/inhumen/wretch/temple)
 "gO" = (
 /obj/structure/roguemachine/bounty{
 	color = "#F75D59"
@@ -22661,7 +22653,7 @@ bX
 PC
 Xw
 YG
-gN
+Mk
 YG
 og
 JX

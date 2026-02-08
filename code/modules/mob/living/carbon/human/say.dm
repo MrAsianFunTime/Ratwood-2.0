@@ -58,7 +58,7 @@
 		switch(voice_type)
 			if(VOICE_TYPE_FEM)
 				return "Unknown Woman"
-			if(VOICE_TYPE_MASC, VOICE_TYPE_MASC_FOP)
+			if(VOICE_TYPE_MASC)
 				return "Unknown Man"
 			if(VOICE_TYPE_ANDR)
 				return "Unknown Person"

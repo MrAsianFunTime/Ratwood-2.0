@@ -371,4 +371,3 @@
 	name = "Kite Shield"
 	cost = 20
 	contains = list(/obj/item/rogueweapon/shield/tower/metal)
-

@@ -60,7 +60,7 @@
 		var/weapon_choice = input(H, "Choose your expert-level proficiencies.", "HOW DOTH THOU WALK THROUGH LYFE, SELLSWORD?") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
-			if("The Disgraced Watchman (Swords, Maces, Shields & Polearms)") 
+			if("The Disgraced Watchman (Maces, Shields & Polearms)") 
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/mace/cudgel
 				r_hand = /obj/item/rogueweapon/halberd

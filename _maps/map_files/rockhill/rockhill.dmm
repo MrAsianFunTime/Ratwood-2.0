@@ -49951,6 +49951,16 @@
 /obj/structure/bars,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/church/chapel)
+"pbY" = (
+/obj/structure/underworld/barrier,
+/obj/effect/landmark/start/adventurerlate{
+	dir = 1
+	},
+/obj/effect/landmark/start/courtagent,
+/turf/open/floor/rogue/churchrough,
+/area/rogue/underworld{
+	first_time_text = "wayfarer's dream"
+	})
 "pco" = (
 /obj/structure/fluff/statue/knight,
 /turf/open/floor/rogue/grass,
@@ -526269,8 +526279,8 @@ uxY
 uxY
 uxY
 fEJ
-ckz
-ckz
+pbY
+pbY
 uxY
 jcS
 syY

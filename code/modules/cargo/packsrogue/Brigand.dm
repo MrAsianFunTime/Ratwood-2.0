@@ -219,6 +219,11 @@
 	cost = 15
 	contains = list(/obj/item/clothing/shoes/roguetown/boots/armor)
 
+/datum/supply_pack/rogue/Brigand/reinforcedboots
+	name = "Heavy Leather Boots"
+	cost = 10
+	contains = list(/obj/item/clothing/shoes/roguetown/boots/leather/reinforced)
+
 /////////////
 // WEAPONS //
 /////////////
@@ -340,7 +345,7 @@
 
 /datum/supply_pack/rogue/Brigand/billhook
 	name = "Billhook"
-	cost = 65
+	cost = 60
 	contains = list(/obj/item/rogueweapon/spear/billhook)
 
 /datum/supply_pack/rogue/Brigand/partizan
@@ -359,9 +364,39 @@
 	contains = list(/obj/item/rogueweapon/halberd)
 
 /datum/supply_pack/rogue/Brigand/lsword
-	name = "Knight's Longsword"
+	name = "Longsword"
 	cost = 45
-	contains = list(/obj/item/rogueweapon/sword/long/death)
+	contains = list(/obj/item/rogueweapon/sword/long)
+
+/datum/supply_pack/rogue/Brigand/krieg
+	name = "kriegmesser"
+	cost = 45
+	contains = list(/obj/item/rogueweapon/sword/long/kriegmesser)
+
+/datum/supply_pack/rogue/Brigand/Zweihandersword
+	name = "Zweihander"
+	cost = 65
+	contains = list(/obj/item/rogueweapon/greatsword/zwei)
+
+/datum/supply_pack/rogue/Brigand/SZweihandersword
+	name = "Steel Zweihander"
+	cost = 70
+	contains = list(/obj/item/rogueweapon/greatsword/grenz)
+
+/datum/supply_pack/rogue/Brigand/SFlamberge
+	name = "Steel Flamberge"
+	cost = 70
+	contains = list(/obj/item/rogueweapon/greatsword/grenz/flamberge)
+
+/datum/supply_pack/rogue/Brigand/greatsword
+	name = "Greatsword"
+	cost = 70
+	contains = list(/obj/item/rogueweapon/greatsword)
+
+/datum/supply_pack/rogue/Brigand/estoc
+	name = "Estoc"
+	cost = 70
+	contains = list(/obj/item/rogueweapon/estoc)
 
 /////////////
 // SHIELDS //

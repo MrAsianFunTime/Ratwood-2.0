@@ -22109,15 +22109,6 @@
 /obj/item/bedroll,
 /turf/open/floor/rogue/churchbrick,
 /area/rogue/indoors/town/manor/rockhill)
-"gzW" = (
-/obj/structure/underworld/barrier,
-/obj/structure/underworld/carriage{
-	pixel_x = -100
-	},
-/turf/open/floor/rogue/churchrough,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
 "gzY" = (
 /obj/structure/fluff/walldeco/psybanner/red{
 	pixel_x = -7
@@ -25044,7 +25035,7 @@
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/bograt/above)
 "htt" = (
-/turf/open/floor/rogue/churchrough,
+/turf/closed/mineral/rogue/bedrock,
 /area/rogue/underworld{
 	first_time_text = "wayfarer's dream"
 	})
@@ -49436,10 +49427,14 @@
 	},
 /area/rogue/indoors/town/church/chapel)
 "oVf" = (
-/obj/structure/underworld/barrier,
-/obj/structure/far_travel,
-/turf/open/floor/rogue/churchrough,
-/area/rogue/underworld/adventurespawn)
+/obj/structure/underworld/carriage{
+	pixel_x = -97;
+	pixel_y = -36
+	},
+/turf/closed/mineral/rogue/bedrock,
+/area/rogue/underworld{
+	first_time_text = "wayfarer's dream"
+	})
 "oVi" = (
 /obj/structure/closet/crate/chest{
 	lockid = "bog_gatehouse"
@@ -523697,11 +523692,11 @@ wMe
 wMe
 jnZ
 jsl
-wMe
-wMe
-wMe
-uxY
-jcS
+dec
+dec
+dec
+vqs
+kwk
 syY
 vIa
 vIa
@@ -524129,11 +524124,11 @@ wMe
 uxY
 uxY
 jsl
-uxY
-wMe
-wMe
-uxY
-jcS
+vqs
+dec
+dec
+vqs
+kwk
 syY
 vIa
 vIa
@@ -524563,9 +524558,9 @@ jcS
 jsl
 cHh
 dec
-wMe
-uxY
-jcS
+dec
+vqs
+kwk
 syY
 vIa
 vIa
@@ -524995,9 +524990,9 @@ uxY
 qLk
 ckz
 ckz
-htt
-uxY
-jcS
+ckz
+vqs
+kwk
 syY
 vIa
 vIa
@@ -525426,10 +525421,10 @@ tRv
 uxY
 uxY
 nQB
+htt
 ckz
-ckz
-uxY
-jcS
+vqs
+kwk
 syY
 vIa
 vIa
@@ -525858,10 +525853,10 @@ rWJ
 uxY
 uxY
 fEJ
+oVf
 ckz
-gzW
-uxY
-jcS
+vqs
+kwk
 syY
 vIa
 vIa
@@ -526292,8 +526287,8 @@ uxY
 fEJ
 pbY
 pbY
-uxY
-jcS
+vqs
+kwk
 syY
 vIa
 vIa
@@ -526725,7 +526720,7 @@ wMe
 wMe
 wMe
 vqs
-jcS
+kwk
 syY
 vIa
 vIa
@@ -527587,9 +527582,9 @@ uDi
 wMe
 wMe
 wMe
-oVf
+dsZ
 aoa
-kwk
+jcS
 syY
 vIa
 vIa

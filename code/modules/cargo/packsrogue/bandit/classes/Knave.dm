@@ -227,6 +227,17 @@
 	/obj/item/ammo_casing/caseless/rogue/arrow/water,
 	)
 
+/datum/supply_pack/rogue/Knave/Wbolts
+	name = "Water Bolts (x5)"
+	cost = 1
+	contains = list(
+	/obj/item/ammo_casing/caseless/rogue/bolt/water,
+	/obj/item/ammo_casing/caseless/rogue/bolt/water,
+	/obj/item/ammo_casing/caseless/rogue/bolt/water,
+	/obj/item/ammo_casing/caseless/rogue/bolt/water,
+	/obj/item/ammo_casing/caseless/rogue/bolt/water,
+	)
+
 /datum/supply_pack/rogue/Knave/Parrows
 	name = "Poisoned Arrow"
 	cost = 3

@@ -329,3 +329,10 @@
 	reqs = list(/obj/item/magic/manacrystal = 1,
 				/obj/item/paper/scroll = 1)
 	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/arcana/circuitus_scroll
+	name = "circuitus scroll"
+	result = /obj/item/circuitus_scroll
+	reqs = list(/obj/item/magic/manacrystal = 1,
+				/obj/item/paper/scroll = 1)
+	craftdiff = 1

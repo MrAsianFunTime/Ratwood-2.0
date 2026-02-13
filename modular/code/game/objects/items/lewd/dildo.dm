@@ -102,3 +102,8 @@
 	color = "#c4b651"
 	dildo_material = "golden"
 	sellprice = 50
+
+/obj/item/dildo/blacksteel
+	color = "#A2CBE3"
+	dildo_material = "blacksteel"
+	sellprice = 150

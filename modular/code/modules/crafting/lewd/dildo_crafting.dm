@@ -30,3 +30,10 @@
 	created_item = /obj/item/dildo/gold
 	createditem_num = 3
 	i_type = "Utilities"
+
+/datum/anvil_recipe/blacksteel_dildo
+	name = "Dildo, Blacksteel (x3)"
+	req_bar = /obj/item/ingot/blacksteel
+	created_item = /obj/item/dildo/blacksteel
+	createditem_num = 3
+	i_type = "Utilities"

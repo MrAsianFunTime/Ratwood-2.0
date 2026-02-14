@@ -457,6 +457,28 @@
 /mob/living/DirectAccess(atom/target)
 	return ..() + GetAllContents()
 
+/atom/movable/proc/IsDirectlyAccessible(atom/target)
+	return target == src || target == loc
+
+/mob/IsDirectlyAccessible(atom/target)
+	if(target == src || target == loc)
+		return TRUE
+	if(target.loc == src)
+		return TRUE
+	return FALSE
+
+/mob/living/IsDirectlyAccessible(atom/target)
+	if(target == loc)
+		return TRUE
+	var/atom/curr = target
+	while(curr)
+		if(curr == src)
+			return TRUE
+		if(isarea(curr))
+			break
+		curr = curr.loc
+	return FALSE
+
 /atom/proc/AllowClick()
 	return FALSE
 

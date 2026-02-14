@@ -301,7 +301,8 @@
 		user.visible_message(span_info("[target] writhes as \the [src] sears onto their [branding_part.name]! The fresh brand reads \"[setbranding]\"."))
 		branding_part.branded_writing = setbranding
 	to_chat(target, span_userdanger("You have been branded!"))
-	target.emote(prob(50) ? "painscream" : "scream", TRUE)
+	target.emote(prob(50) ? "painscream" : "scream", forced = TRUE)
+	target.Stun(40)
 	target.flash_fullscreen("redflash2")
 	playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
 	update_heated(FALSE)

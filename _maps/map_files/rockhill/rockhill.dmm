@@ -17593,6 +17593,7 @@
 "fra" = (
 /obj/structure/table/wood,
 /obj/item/rogueweapon/whip,
+/obj/item/rogueweapon/surgery/cautery/branding,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/inq/basement)
 "frg" = (

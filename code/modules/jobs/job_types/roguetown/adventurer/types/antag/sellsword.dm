@@ -94,7 +94,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/misc/climbing, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
-/datum/outfit/job/roguetown/bandit/knave/post_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit/sellsword/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	for(var/datum/bounty/b in GLOB.head_bounties)
 		if(b.target == H.real_name || b.target_hidden == H.real_name)

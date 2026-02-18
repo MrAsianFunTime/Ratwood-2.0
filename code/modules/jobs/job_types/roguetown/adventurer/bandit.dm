@@ -62,10 +62,10 @@
 		H.mind.add_antag_datum(new_antag)
 		H.grant_language(/datum/language/thievescant)
 		H.choose_name_popup("BANDIT")
-		bandit_select_bounty(H)	
+		bandit_select_bounty(H)
 
 // Changed up proc from Wretch to suit bandits bit more
-/proc/bandit_select_bounty(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit/proc/bandit_select_bounty(mob/living/carbon/human/H)
 	var/wanted = input(H, "Are you wanted by the kingdom?", "You will be more skilled from your experience") as anything in list("Yes", "No")
 	if(wanted == "No") 
 		to_chat(H, span_warning("I am still relatively new to the gang. My crimes have gone unnoticed so far, but I lack experience."))
@@ -111,7 +111,7 @@
 				H.change_stat(STATKEY_SPD, 1)
 	to_chat(H, span_danger("You are playing an Antagonist role. By choosing to spawn as a Bandit, you are expected to actively create conflict with other players regardless of bounty status. Failing to play this role with the appropriate gravitas may result in punishment for Low Roleplay standards."))
 
-/proc/update_bandit_slots()
+/datum/outfit/job/roguetown/bandit/proc/update_bandit_slots()
 	var/datum/job/bandit_job = SSjob.GetJob("Bandit")
 	if(!bandit_job)
 		return

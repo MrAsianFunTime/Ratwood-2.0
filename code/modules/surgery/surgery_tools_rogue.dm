@@ -279,7 +279,7 @@
 				available_loins += "Cock"
 			if(vagina && vagina.is_visible())
 				available_loins += "Cunt"
-			if(testes && testes.is_visible() && testes.ball_size > DEFAULT_TESTICLES_SIZE) // only allow balls to be branded if large
+			if(testes && testes.is_visible() && testes.ball_size >= DEFAULT_TESTICLES_SIZE && !(penis && penis.sheath_type == SHEATH_TYPE_SLIT)) // only allow balls to be branded if average or bigger (slit types have internal balls)
 				available_loins += "Bollocks"
 			if(length(available_loins) < 1)
 				to_chat(user, span_warning("I can't see any loins worthy of my branding."))

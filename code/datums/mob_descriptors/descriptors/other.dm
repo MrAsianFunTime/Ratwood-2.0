@@ -114,7 +114,10 @@
 			adjective = "an average"
 		if(3)
 			adjective = "a large"
-	return "[adjective] pair of balls"
+	var/branded = ""
+	if(length(testes.branded_writing))
+		branded = ", branded with <span style='font-size:125%;'>[span_boldwarning(testes.branded_writing)]</span>"
+	return "[adjective] pair of balls[branded]"
 
 /datum/mob_descriptor/vagina
 	name = "vagina"

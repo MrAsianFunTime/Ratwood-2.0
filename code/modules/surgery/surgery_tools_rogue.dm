@@ -273,11 +273,14 @@
 		else // ask if they want to brand genitals
 			var/obj/item/organ/penis/penis = target.getorganslot(ORGAN_SLOT_PENIS)
 			var/obj/item/organ/vagina/vagina = target.getorganslot(ORGAN_SLOT_VAGINA)
+			var/obj/item/organ/testicles/testes = target.getorganslot(ORGAN_SLOT_TESTICLES)
 			var/list/available_loins = list()
 			if(penis && penis.is_visible())
 				available_loins += "Cock"
 			if(vagina && vagina.is_visible())
 				available_loins += "Cunt"
+			if(testes && testes.is_visible() && testes.ball_size > DEFAULT_TESTICLES_SIZE) // only allow balls to be branded if large
+				available_loins += "Bollocks"
 			if(length(available_loins) < 1)
 				to_chat(user, span_warning("I can't see any loins worthy of my branding."))
 				return TRUE
@@ -301,6 +304,12 @@
 					if(length(vagina.branded_writing))
 						to_chat(user, span_warning("I reburn over the existing marking."))
 					vagina.branded_writing = setbranding
+				if("Bollocks")
+					if(QDELETED(testes) || !user.Adjacent(target)) // body part no longer exists/moved away
+						return TRUE
+					if(length(testes.branded_writing))
+						to_chat(user, span_warning("I reburn over the existing marking."))
+					testes.branded_writing = setbranding
 		user.visible_message(span_info("[target] [description_recoil] as \the [src] sears [target.p_their()] [lowertext(answer)]! The fresh brand shows [span_boldwarning(setbranding)]."))
 		if(!QDELETED(branding_part) && istype(branding_part)) // if targeted body part still exists, apply damage
 			target.apply_damage(20, BURN, branding_part)

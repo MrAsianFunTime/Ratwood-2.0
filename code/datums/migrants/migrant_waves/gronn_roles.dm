@@ -359,6 +359,7 @@
 
 				H.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)							
 				ADD_TRAIT(H, TRAIT_GOODLOVER, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
 
 			if("Captured Bard")
 				H.set_blindness(0)
